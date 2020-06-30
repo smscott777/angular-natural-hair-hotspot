@@ -19,10 +19,12 @@ const routes: Routes = [
   {path: 'my-items', component: MyItemsComponent},
   {path: 'products/:prodNum', component: ProductDetailsComponent},
   {path: 'products', component: SearchResultsComponent},
+  {path: 'search', component: SearchComponent},
   {path: 'review', component: ReviewComponent},
   {path: 'search/:keyword', component: SearchResultsComponent},
+  {path: 'category/:id', component: SearchResultsComponent},
   {path: 'sign-up', component: SignUpComponent},
-  {path: '', redirectTo: '/products', pathMatch: 'full' },
+  {path: '', redirectTo: '/search', pathMatch: 'full' },    //the default view is set to the Search component
   //{path: '**', component: PageNotFoundComponent}
 ];
 
@@ -32,8 +34,8 @@ const routes: Routes = [
     MyItemsComponent,
     ProductDetailsComponent,
     ReviewComponent,
-    SearchComponent,
     SearchResultsComponent,
+    SearchComponent,
     SignUpComponent
   ],
   imports: [
