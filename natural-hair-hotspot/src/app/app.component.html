@@ -1,0 +1,54 @@
+<div class="content">
+  <section class="SignUp">
+    <h5>Log In:</h5>
+    <input type="email" placeholder="Enter your email"/><br>              
+    <input type="password" placeholder="Enter password"/><br>
+    <input class="submit_button" type="submit"/>
+    <button class="sign_button">
+        <a href ="C:\Users\Simone\Desktop\Hello-World\Module2Project\SignUpLogIn.html">
+                Sign Up
+        </a>
+    </button> 
+  </section>        
+
+  <header>
+    <h1>Natural Hair Hotspot</h1>
+    <h2>Our value proposition.</h2>
+  </header>
+
+
+  <nav>
+    <h4>Navigate To</h4>
+    <ul id="sidebar" style="list-style: none;">
+        <li>
+            <a routerLink="/products">Home</a>
+        </li>
+        <li>Search by Product Type</li>
+            <ul class="product_types" style="list-style: none;">
+                <li><button>Conditioner</button></li>
+                <li><button>Co-wash</button></li>
+                <li><button>Leave-in</button></li>
+                <li><button>Shampoo</button></li>
+                <li><button>Gel</button></li>
+                <li><button>Brush/Comb</button></li>
+                <li><button>Oil</button></li>
+                <li><button>Non-gel Stylers</button></li>
+                <li><button>Edge Control</button></li>
+            </ul>
+        <li>
+            <a href ="C:\Users\Simone\Desktop\Hello-World\Module2Project\MyItems.html">
+                My Saved Items
+            </a>
+        </li>
+    </ul>
+  </nav>    
+
+  <!-- search component-->
+  <app-search></app-search>
+
+  <!-- Page Content -->
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

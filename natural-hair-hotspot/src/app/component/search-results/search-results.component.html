@@ -1,0 +1,16 @@
+
+<section>
+    <h3>Results</h3>
+
+    <aside>
+        <button>Filter</button>
+        <input type="checkbox" value=""/>
+    </aside>
+
+    <ul *ngFor="let product of products" style="list-style: none;">
+        <li>{{product.name}}</li>
+        <li>
+            <img [src]="product.imageUrl" height="25"/>
+        </li>
+    </ul>
+</section>

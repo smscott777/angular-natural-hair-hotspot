@@ -1,0 +1,156 @@
+body {
+    background-color: #FFFFFF;
+    color: #000000af;
+    font-family: "Noto Sans", sans-serif;
+    
+}
+
+h1, h2, h3, h4, h5 {
+    color: #ff2f7f;
+
+}
+
+h1, h2, h3 {
+    background-color: #fa94bb65;
+    padding: 10px;   
+
+}
+
+h1, h2 {
+    margin: auto;
+    text-align: center;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+h1 {
+    padding: 40px;
+    font-size: 2.5em;
+    border: double white 10px;
+}
+
+
+h3 {
+    background-color: transparent;
+    margin: auto;
+    text-align: center;
+    padding: 30px;
+    width: 40%;
+}
+
+
+h5 {
+    position: relative;
+    top: 25px;
+    font-size: 1em;
+}
+
+nav {
+    background-color: #fa94bb65;
+    width: 12%;
+    float: left;
+    border: double white 10px; 
+    font-weight: bold; 
+    
+}
+
+a {
+    color: #ff2f7f;
+
+}
+
+button {
+    background-color: #fa94bb65;
+    border: double #ff2f7f;
+    width: 10%;
+    font-weight: bold;
+}
+
+aside {
+    float: right;
+    width: 40%;
+}
+
+.SignUp {
+    position: relative;
+    bottom: 35px;
+    float: right;
+    width: 11%;
+}
+
+.sign_button {
+    width: 52%;
+}
+
+.product_types {
+    width: 550%;
+}
+
+.submit_button {
+    background-color: #fa94bb65;
+    border: solid #ff2f7f;
+}
+
+
+.bordered {
+    background-color: #fa94bb65;
+    border: double #FFFFFF 15px;
+}
+
+
+#sidebar {
+    position: relative;
+    right: 30px;
+}
+
+#center {
+    background-color: #fa94bb65;
+    margin: auto;
+    text-align: center;
+    width: 60%;
+    position: relative;
+    top: 80px;
+    border: double #FFFFFF 40px;
+}
+
+#center_head {
+    background-color: transparent;
+    border: none;
+}
+
+#center_search {
+    
+    width: 50%;
+    height: 40px;
+}
+
+.search_bar {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 150px; 
+}
+
+#searchbar {
+    width: 50%;
+    height: 30px;
+    font-size: 1em;
+}
+
+#ingredient_list {
+    background-color: #FFFFFF;
+    float: right;
+    width: 30%;
+    border: double #fa94bb65 20px;
+    
+}
+
+.product_img {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: 700px;
+}
+
+
+#my_items {
+    width: 10%;
+}
