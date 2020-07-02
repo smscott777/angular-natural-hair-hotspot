@@ -58,7 +58,7 @@ export class SearchResultsComponent implements OnInit{
         const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
 
         this._productService.searchProducts(keyword,
-                                            this.currentPage,
+                                            this.currentPage - 1,
                                             this.pageSize)
                                             .subscribe(this.processResults());
     }

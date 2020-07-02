@@ -6,11 +6,21 @@
         <button>Filter</button>
         <input type="checkbox" value=""/>
     </aside>
-
+<!--
     <ul *ngFor="let product of products" style="list-style: none;">
-        <li>{{product.name}}</li>
+        <li>Product1: {{product.name}}</li>
         <li>
             <img [src]="product.imageUrl" height="25"/>
         </li>
     </ul>
+-->
+    <div *ngFor="let product of products">
+        {{product.name}}
+        <img [src]="product.imageUrl" height="150"/>
+    </div>
+    <div *ngIf="products?.length == 0">
+        No Products Found
+    </div>
+
+    
 </div>
