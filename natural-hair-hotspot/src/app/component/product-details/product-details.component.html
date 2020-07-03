@@ -1,0 +1,60 @@
+<section class="search_bar">
+    <input id="searchbar" type="search" #searchInput (keyup.enter)="searchProducts(searchInput.value)" placeholder="(Search)"/>
+    <button class="submit_button" type="submit" (click)="searchProducts(searchInput.value)">Search</button>
+</section>
+
+<section id="ingredient_list">
+    <h3>Ingredient List</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lorem nisl, dictum sagittis vestibulum nec, sodales et enim. Etiam et orci<br>
+        interdum, placerat velit sed, laoreet est. Vivamus hendrerit mi magna. Praesent at odio eleifend, vulputate tellus vel, efficitur libero<br>
+        Vestibulum quis dignissim magna. Morbi feugiat accumsan lacus at pulvinar. Ut ex erat, efficitur in finibus non, pharetra eget enim. Sed <br>
+        bibendum pulvinar risus, nec euismod mi consequat ac. Praesent at ex eget libero sagittis efficitur. Maecenas sem dolor, imperdiet sed<br>
+        facilisis ullamcorper, condimentum non metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis<br>
+        egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hendrerit condimentum accumsan. Nunc<br>
+        ligula risus, tempor id velit ac, tincidunt facilisis nunc. Donec accumsan molestie nisi, non condimentum tortor lacinia sodales.<br>
+    </p>
+</section>
+
+
+<section class="product_img">
+    <h2>{{product.name}}</h2>
+    
+    <p id="primary_img"><img src="{{product.imageUrl}}" alt="Specific Product Image 1" width="500" height="500"></p>
+    <p id="secondary_img">
+        <img src="C:\Users\Simone\Pictures\Coding\kinkycurly2.jpg" alt="Specific Product Image 2" width="100" height="100">
+        <img src="none" alt="Specific Product Image 3">
+    </p>
+    
+</section>
+
+
+<section id="my_items">
+    <h4>
+        Save to My Items
+        <input type="checkbox"/>
+    </h4>
+</section>
+
+
+<section class="bordered">
+    <h3>Reviews</h3>
+    <h4>
+        <a href="file:///C:/Users/Simone/Desktop/Hello-World/Module2Project/CreateReview.html">
+            Create a Review
+    
+    
+    <input type="search" placeholder="Search Reviews"/>
+    <input type="submit"/>
+
+    <ul id="review_list">
+        <h4><li><a href="Review_1_link">Input Review 1</a></li></h4>
+            <aside>Review 1 Preview Text and Media</aside>
+            <aside>Fav Review<input type="checkbox"/></aside>
+        <h4><li><a href="Review_2_link">Input Review 2</a></li></h4>
+            <aside>Review 2 Preview Text and Media</aside>
+        <h4><li><a href="Review_3_link">Input Review 3</a></li></h4>
+            <aside>Review 3 Preview Text and Media</aside>
+        <h4><li><a href="Review_4_link">Input Review 4</a></li></h4>
+            <aside>Review 4 Preview Text and Media</aside>
+    </ul>
