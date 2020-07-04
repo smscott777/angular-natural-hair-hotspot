@@ -17,10 +17,6 @@ export class SearchComponent implements OnInit{
         this._router.navigateByUrl('/search/'+keyword);
     }
 
-    // Searches by category id
-    searchByCategoryId(id: number){
-        console.log('id', id);
-        this._router.navigateByUrl('/search/category/'+id);
-    }
+
 
 }

@@ -14,6 +14,7 @@ import { SearchComponent } from './component/search/search.component';
 import { SearchResultsComponent } from './component/search-results/search-results.component';
 import { SignUpComponent } from './component/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavComponent } from './component/nav/nav.component';
 
 const routes: Routes = [
   {path: 'my-items', component: MyItemsComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
     SearchResultsComponent,
     SearchComponent,
     SignUpComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
