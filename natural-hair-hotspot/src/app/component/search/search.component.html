@@ -1,3 +1,50 @@
+<nav>
+    <h4>Navigate To</h4>
+    <ul id="sidebar" style="list-style: none;">
+        <li>
+            <a routerLink="/search">Home</a>
+        </li>
+        <li>Search by Product Type</li>
+            <ul class="product_types" style="list-style: none;">
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(1)">Conditioner</button> 
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(5)">Co-wash</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(2)">Leave-in</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(3)">Deep conditioner</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(4)">Shampoo</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(6)">Gel</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(7)">Brush/Comb</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(8)">Oil</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(9)">Non-gel styler</button>
+                </li>
+                <li>
+                    <button type="submit" (click)="searchByCategoryId(10)">Edge control</button>
+                </li>
+            </ul>
+        <li>
+            <a href ="C:\Users\Simone\Desktop\Hello-World\Module2Project\MyItems.html">
+                My Saved Items
+            </a>
+        </li>
+    </ul>
+</nav>    
+
 <section id="center">
     <p>
         <h1 id="center_head"> What are you looking for?</h1>
@@ -5,7 +52,7 @@
         <button class="submit_button" type="submit" (click)="searchProducts(searchInput.value)">Search</button>
     <p>
         <h3>
-            <a href="file:///C:/Users/Simone/Desktop/Hello-World/Module2Project/CreateReview.html">
+            <a routerLink="/review">
                 Create a Review
             </a>
         </h3>  

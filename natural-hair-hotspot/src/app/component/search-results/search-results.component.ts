@@ -14,6 +14,7 @@ export class SearchResultsComponent implements OnInit{
     currentCategoryId: number = 1;
     previousCategoryId: number = 1;
     searchMode: boolean = false;
+    searchByCategoryMode: boolean = false;
 
     //properties for server-side paging
     currentPage: number = 1;
@@ -35,9 +36,14 @@ export class SearchResultsComponent implements OnInit{
     listProducts(){
         this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
 
+        this.searchByCategoryMode = this._activatedRoute.snapshot.paramMap.has('id');
+
         if(this.searchMode){
             this.handleSearchProducts();
         }
+        else if (this.searchByCategoryMode) {
+            this.handleSearchByCategoryId();
+        } 
         else{
             this.handleListProducts();
         }
@@ -63,6 +69,16 @@ export class SearchResultsComponent implements OnInit{
                                             .subscribe(this.processResults());
     }
 
+    handleSearchByCategoryId(){
+        const id: number = +this._activatedRoute.snapshot.paramMap.get('id');  //parses id from string to number
+        
+
+        this._productService.getProductsPaginate(id,
+                                                this.currentPage - 1,
+                                                this.pageSize)
+                                                .subscribe(this.processResults());
+    }
+
     processResults(){
         return data => {
             this.products = data._embedded.products;
@@ -71,4 +87,10 @@ export class SearchResultsComponent implements OnInit{
             this.pageSize = data.page.size;
         }
     }
+/*
+    handleGetProducts(){
+        const id: number = this._activatedRoute.snapshot.paramMap.get('id');
+
+    }
+*/    
 }

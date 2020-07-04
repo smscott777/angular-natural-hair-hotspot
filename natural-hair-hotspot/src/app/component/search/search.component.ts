@@ -11,9 +11,16 @@ export class SearchComponent implements OnInit{
 
     ngOnInit() {}
 
+    // Takes a keyword input specified in the html page then navigates to the path specified in the app.module
     searchProducts(keyword: string){
         console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
+    }
+
+    // Searches by category id
+    searchByCategoryId(id: number){
+        console.log('id', id);
+        this._router.navigateByUrl('/search/category/'+id);
     }
 
 }
