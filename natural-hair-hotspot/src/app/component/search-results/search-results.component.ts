@@ -11,12 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchResultsComponent implements OnInit{
 
     products: Product[] = [];
-    currentCategoryId: number = 1;
-    previousCategoryId: number = 1;
-    searchMode: boolean = false;
+    searchByNameMode: boolean = false;
     searchByCategoryMode: boolean = false;
 
-    //properties for server-side paging
+    // Properties for server-side paging
     currentPage: number = 1;
     pageSize: number = 5;
     totalRecords: number = 0;
@@ -26,59 +24,53 @@ export class SearchResultsComponent implements OnInit{
                 ) {}
 
 
-    // This should assign a value to products according to the parameter(which should be the search results)
+    // The values returned by the methods called here are stored and usable on this component's html page.            
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(()=>{
-            this.listProducts();
+            this.listProducts();  
         })
     }
 
+
+    // Does a search of the products by either the product's name (containing) or the category
     listProducts(){
-        this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
+        this.searchByNameMode = this._activatedRoute.snapshot.paramMap.has('keyword');
 
         this.searchByCategoryMode = this._activatedRoute.snapshot.paramMap.has('id');
 
-        if(this.searchMode){
+        if(this.searchByNameMode){
             this.handleSearchProducts();
         }
         else if (this.searchByCategoryMode) {
-            this.handleSearchByCategoryId();
+            this.handleSearchByCategory();
         } 
-        else{
-            this.handleListProducts();
-        }
     }
 
-    handleListProducts(){
-        const hasCategoryId: boolean = this._activatedRoute.snapshot.paramMap.has('id');
 
-        if(hasCategoryId){
-            this.currentCategoryId = +this._activatedRoute.snapshot.paramMap.get('id');
-        }
-        else{
-            this.currentCategoryId = 1
-        }
-    }
-
+    // This method takes the stored input keyword from the console then searches products by this keyword
     handleSearchProducts(){
         const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
 
-        this._productService.searchProducts(keyword,
+        this._productService.getProductsByName(keyword,
                                             this.currentPage - 1,
                                             this.pageSize)
                                             .subscribe(this.processResults());
     }
 
-    handleSearchByCategoryId(){
-        const id: number = +this._activatedRoute.snapshot.paramMap.get('id');  //parses id from string to number
-        
 
-        this._productService.getProductsPaginate(id,
+    // When a category button is clicked from the nav sidebar, this method takes the stored category id.
+    // Then searches products by this category id
+    handleSearchByCategory(){
+        const id: number = +this._activatedRoute.snapshot.paramMap.get('id');  // parses id from string to number
+        
+        this._productService.getProductsByCategory(id,
                                                 this.currentPage - 1,
                                                 this.pageSize)
                                                 .subscribe(this.processResults());
     }
 
+
+    // Assigns values to reviews list and page fields that from data received from GET request
     processResults(){
         return data => {
             this.products = data._embedded.products;
@@ -87,10 +79,4 @@ export class SearchResultsComponent implements OnInit{
             this.pageSize = data.page.size;
         }
     }
-/*
-    handleGetProducts(){
-        const id: number = this._activatedRoute.snapshot.paramMap.get('id');
-
-    }
-*/    
 }

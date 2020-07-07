@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Product} from '../common/product';
-import { Category } from '../common/category';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Product } from '../common/product';
+import { Review } from '../common/review';
 
 @Injectable({
     providedIn: 'root'
@@ -11,38 +10,30 @@ import { Category } from '../common/category';
 export class ProductService {
 
     private baseUrl = "http://localhost:9090/api/v1/products";
-    private categoryUrl = "http://localhost:9090/api/v1/category";
+    private reviewsUrl = "http://localhost:9090/api/v1/reviews";
 
     constructor(private http: HttpClient) {}
-
-    // ` works but ' doesn't
-    getProducts(theCategoryId: number): Observable<Product[]>{
-        const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
-        return this.getProductsList(searchUrl);
-    }
-
-    getProductsPaginate(theCategoryId: number, currentPage: number, pageSize: number): Observable<GetResponseProducts>{
+   
+    
+    // Takes a category's id as an argument and returns a list of products within that category id 
+    getProductsByCategory(theCategoryId: number, currentPage: number, pageSize: number): Observable<GetResponseProducts>{
         const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}&page=${currentPage}&size=${pageSize}`;
         return this.http.get<GetResponseProducts>(searchUrl);
     }
 
-    getProductCategories(): Observable<Category[]>{
-        return this.http.get<GetResponseCategory>(this.categoryUrl).pipe(
-                    map(response => response._embedded.category)
-        );
-    }
-
-    searchProducts(keyword: string, currentPage: number, pageSize: number): Observable<GetResponseProducts>{
+    // Takes a product's name as an argument and returns a list of products containing that name
+    getProductsByName(keyword: string, currentPage: number, pageSize: number): Observable<GetResponseProducts>{
         const searchUrl = `${this.baseUrl}/search/searchbykeyword?name=${keyword}&page=${currentPage}&size=${pageSize}`;
         return this.http.get<GetResponseProducts>(searchUrl);
     }
 
-    private getProductsList(searchUrl: string): Observable<Product[]>{
-        return this.http.get<GetResponseProducts>(searchUrl).pipe(
-                    map(response => response._embedded.products)
-        );
-    }
+    // Takes a product number as an argument and returns a list of reviews for that product
+    getReviewsByProductNumber(prodNum: number, currentPage: number, pageSize: number): Observable<GetResponseReviews>{
+        const searchUrl = `${this.reviewsUrl}/search/prodNum?prodNum=${prodNum}&page=${currentPage}&size=${pageSize}`;
+        return this.http.get<GetResponseReviews>(searchUrl);
+    }    
 
+    // Takes a product number as an argument and returns that single product from the entire database of products
     get(productNum: number): Observable<Product>{
         const productDetailsUrl = `${this.baseUrl}/${productNum}`;
         return this.http.get<Product>(productDetailsUrl);
@@ -61,8 +52,15 @@ interface GetResponseProducts{
     }
 }
 
-interface GetResponseCategory{
+
+interface GetResponseReviews{
     _embedded: {
-        category: Category[];
+        reviews: Review[];
+    },
+    page: {
+        size: number,
+        totalElements: number,
+        totalPages: number,
+        number: number
     }
 }
