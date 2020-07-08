@@ -27,6 +27,12 @@ export class ProductService {
         return this.http.get<GetResponseProducts>(searchUrl);
     }
 
+    // Takes a product's ingredient as an argument and returns a list of products containing that ingredient
+    getProductsByIngredient(ingredient: string, currentPage: number, pageSize: number): Observable<GetResponseProducts>{
+        const searchUrl = `${this.baseUrl}/search/searchByIngredients?ingredient=${ingredient}&page=${currentPage}&size=${pageSize}`;
+        return this.http.get<GetResponseProducts>(searchUrl);
+    }    
+
     // Takes a product number as an argument and returns a list of reviews for that product
     getReviewsByProductNumber(prodNum: number, currentPage: number, pageSize: number): Observable<GetResponseReviews>{
         const searchUrl = `${this.reviewsUrl}/search/prodNum?prodNum=${prodNum}&page=${currentPage}&size=${pageSize}`;

@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5 {
 
 }
 
-h1, h2, h3 {
+ h2, h3 {
     background-color: #fa94bb65;
     padding: 10px;   
 
@@ -22,10 +22,25 @@ h1, h2 {
     font-family: Verdana, Geneva, sans-serif;
 }
 
-h1 {
-    padding: 40px;
+#secondary_title {
+    margin: auto;
+    text-align: center;
+    padding-right: 8%;
+    font-size: 1.3em;
+}
+
+#main_title {
+    padding: 30px;
     font-size: 2.5em;
-    border: double white 10px;
+}
+
+header {
+    background-color: #fa94bb65;
+    color: #ff2f7f;
+    padding: 1%;   
+    border: double white 15px;
+
+
 }
 
 
@@ -61,9 +76,32 @@ a {
 button {
     background-color: #fa94bb65;
     border: double #ff2f7f;
-    width: 10%;
     font-weight: bold;
 }
+
+.nav_button {
+    width: 70%;
+}
+
+.sign_button {
+    width: 52%;
+}
+
+
+.submit_button {
+    background-color: #fa94bb65;
+    border: solid #ff2f7f;
+    width: 10%
+}
+
+#login_submit_button {
+    width: 40%;
+}
+
+.login_input {
+    width: 85%;
+}
+
 
 aside {
     float: right;
@@ -77,18 +115,7 @@ aside {
     width: 11%;
 }
 
-.sign_button {
-    width: 52%;
-}
 
-.product_types {
-    width: 550%;
-}
-
-.submit_button {
-    background-color: #fa94bb65;
-    border: solid #ff2f7f;
-}
 
 
 .bordered {
@@ -97,10 +124,7 @@ aside {
 }
 
 
-#sidebar {
-    position: relative;
-    right: 30px;
-}
+
 
 #center {
     background-color: #fa94bb65;
@@ -115,6 +139,7 @@ aside {
 #center_head {
     background-color: transparent;
     border: none;
+    padding: 2%;
 }
 
 #center_search {
@@ -153,4 +178,10 @@ aside {
 
 #my_items {
     width: 10%;
+}
+
+
+
+table {
+    width: 100%;
 }

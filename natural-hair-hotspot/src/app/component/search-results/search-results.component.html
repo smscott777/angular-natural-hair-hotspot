@@ -1,21 +1,42 @@
 
 <div>
-    <h3>Results</h3>
+    <h3>Search Results</h3>
 
     <aside>
         <button>Filter</button>
         <input type="checkbox" value=""/>
     </aside>
-
+<!--
     <div *ngFor="let product of products">
-        <a routerLink="/products/{{product.prodNum}}">{{product.name}}</a>
-        <a routerLink="/products/{{product.prodNum}}">
+        <a id="product_image" routerLink="/products/{{product.prodNum}}">
             <img [src]="product.imageUrl" height="150" width="150"/>
+        </a>
+        <a id="product_name" routerLink="/products/{{product.prodNum}}">
+            {{product.name}}
         </a>
     </div>
     <div *ngIf="products?.length == 0">
         No Products Found
     </div>
+-->
+    <table *ngFor="let product of products">
+        <tr>
+            
+                <a id="product_image" routerLink="/products/{{product.prodNum}}">
+                    <img [src]="product.imageUrl" height="150" width="150"/>
+                </a>
+             
+        </tr>
+        <tfoot>
+            <a id="product_name" routerLink="/products/{{product.prodNum}}">
+                {{product.name}}
+            </a>
+        </tfoot>
+    </table>
+    <div *ngIf="products?.length == 0">
+        No Products Found
+    </div>
 
     
+
 </div>

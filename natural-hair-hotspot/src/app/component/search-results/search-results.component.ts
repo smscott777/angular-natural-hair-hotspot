@@ -16,7 +16,7 @@ export class SearchResultsComponent implements OnInit{
 
     // Properties for server-side paging
     currentPage: number = 1;
-    pageSize: number = 5;
+    pageSize: number;   // Max number of products to be listed as search results. Infinite if not inititialized.
     totalRecords: number = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
@@ -55,6 +55,15 @@ export class SearchResultsComponent implements OnInit{
                                             this.currentPage - 1,
                                             this.pageSize)
                                             .subscribe(this.processResults());
+
+        // If the keyword is not in the product's name, it will search in the ingredients list
+        if(this.products.length == 0){
+            this._productService.getProductsByIngredient(keyword,
+                this.currentPage - 1,
+                this.pageSize)
+                .subscribe(this.processResults());
+        }
+
     }
 
 
