@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'products/:prodNum', component: ProductDetailsComponent},
   {path: 'products', component: SearchResultsComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'review', component: ReviewComponent},
+  {path: 'reviews/:prodNum', component: ReviewComponent},
+  {path: 'reviews', component: ReviewComponent},
   {path: 'search/category/:id', component: SearchResultsComponent},
   {path: 'search/:keyword', component: SearchResultsComponent},
   {path: 'sign-up', component: SignUpComponent},
@@ -45,7 +47,8 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

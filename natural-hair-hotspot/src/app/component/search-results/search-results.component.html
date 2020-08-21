@@ -1,3 +1,7 @@
+<div class="search_bar">
+    <input id="searchbar" type="search" #searchInput (keyup.enter)="searchProducts(searchInput.value)" placeholder="(Search)"/>
+    <button class="submit_button" type="submit" (click)="searchProducts(searchInput.value)">Search</button>
+</div>
 
 <div>
     <h3>Search Results</h3>

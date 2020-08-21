@@ -32,7 +32,7 @@
 <section class="bordered">
     <h3>Reviews</h3>
     <h3>
-        <a routerLink="/review">Create a Review</a>
+        <a routerLink="/reviews/{{product.prodNum}}">Create a Review</a>
     </h3>
     
     <input id="search_reviews" type="search" placeholder="Search Reviews"/>
@@ -48,3 +48,4 @@
     <div *ngIf="reviews?.length == 0">
         No Reviews
     </div>
+</section>

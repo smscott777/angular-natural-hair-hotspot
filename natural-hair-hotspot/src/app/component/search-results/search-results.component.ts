@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../common/product';
 import { ProductService } from '../../service/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +20,8 @@ export class SearchResultsComponent implements OnInit{
     totalRecords: number = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
-                private _productService: ProductService
+                private _productService: ProductService,
+                private _router: Router
                 ) {}
 
 
@@ -88,4 +89,12 @@ export class SearchResultsComponent implements OnInit{
             this.pageSize = data.page.size;
         }
     }
+
+    // Takes a keyword input specified in the html page then navigates to the path specified in the app.module
+    //****DOES NOT SEARCH BY THE SAME INGREDIENT THAT WAS THE 1ST SEARCH */
+    searchProducts(keyword: string){
+        console.log('keyword', keyword);
+        this._router.navigateByUrl('/search/'+keyword);
+    }
 }
+

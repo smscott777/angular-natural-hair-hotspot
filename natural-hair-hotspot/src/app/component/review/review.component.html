@@ -6,35 +6,45 @@
         
 
 <section id="review_parts">
-    <h3>Write Review</h3>
-
-    <div>
-        <section class="product_img">
-            <h2>{{product.name}}</h2>
+        
+    <div class="product_img" id="product_img_review">
+           
+        <h2>{{product.name}}</h2>
                     
-            <p id="primary_img"><img src="{{product.imageUrl}}" alt="Specific Product Image 1" width="200" height="200"></p>
-                     
-        </section>
-    </div>
-
-    <p>Title Your Review: <input type="text"/></p>
-            
-    <p>
-        Add a Summary: 
-        <textarea name="summary_text" cols="50" rows="10"></textarea>
-    </p>
-            
-    <p>
-        Add Media:
-        <button>
-            <a href="">
-                Upload Pic/Video
+        <p id="primary_img">
+            <a routerLink="/products/{{product.prodNum}}">
+                <img src="{{product.imageUrl}}" alt="Specific Product Image 1" width="200" height="200">
             </a>
-        </button>
-    </p>
+        </p>
+                     
+         
+    </div>
+   
+    <form [formGroup]="createReviewForm" (ngSubmit)="createReview()">
+        <div>
+            <h3>Write Review</h3>
 
-    <button>Go Back</button>
-    <button>Save Changes</button>
-    <button>Post Review</button>
+            <p>Title Your Review: <input class="form-control" type="text" [formControlName]="'title'" name="title"/></p>
+            
+            <p>
+                Add a Summary: 
+                <textarea class="form-control" [formControlName]="'body'"  name="body" cols="50" rows="10"></textarea>
+            </p>
+            
+            
+
+            <p>
+                Add Media:
+                <button>
+                    <a href="">Upload Pic/Video</a>
+                </button>
+            </p>
+
+            <button>Go Back</button>
+            <button>Save Changes</button>
+            <button type="submit">Post Review</button>
+        </div>
+    
+    </form>
 
 </section>

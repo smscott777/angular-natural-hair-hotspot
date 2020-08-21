@@ -152,6 +152,7 @@ aside {
     text-align: center;
     padding: 10px;
     margin-bottom: 150px; 
+
 }
 
 #searchbar {
@@ -173,6 +174,12 @@ aside {
     text-align: center;
     width: 50%;
     height: 700px;
+}
+
+
+
+#product_img_review {
+    height: 300px;
 }
 
 

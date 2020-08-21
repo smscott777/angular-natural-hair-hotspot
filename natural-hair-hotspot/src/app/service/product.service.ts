@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { Review } from '../common/review';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,8 @@ export class ProductService {
     private reviewsUrl = "http://localhost:9090/api/v1/reviews";
 
     constructor(private http: HttpClient) {}
+
+    
    
     
     // Takes a category's id as an argument and returns a list of products within that category id 
@@ -44,6 +47,12 @@ export class ProductService {
         const productDetailsUrl = `${this.baseUrl}/${productNum}`;
         return this.http.get<Product>(productDetailsUrl);
     }
+
+    getAllProducts(): Observable<Array<Product>> {
+        const searchUrl = `${this.baseUrl}/search`;
+        return this.http.get<Array<Product>>(searchUrl);
+    }
+
 }
 
 interface GetResponseProducts{

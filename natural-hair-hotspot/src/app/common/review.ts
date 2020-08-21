@@ -1,5 +1,10 @@
+import { Product } from './product';
+
 export class Review {
-    id: number;
+ //   id: number;
     title: string;
-    body: string;
+    body: string
+   // prodNum: number;
+    product: String;
+
 }
