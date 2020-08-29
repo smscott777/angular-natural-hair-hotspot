@@ -9,7 +9,6 @@ import { CreateReviewPayLoad } from '../common/create-review.payload';
 })
 export class ReviewService {
 
-    private baseUrl = "http://localhost:9090/api/v1/products";
     private reviewsUrl = "http://localhost:9090/api/v1/reviews";
 
     constructor(private http: HttpClient) {}
@@ -19,29 +18,23 @@ export class ReviewService {
         return this.http.get<GetResponseReviews>(searchUrl);
     }
 
-
     saveReview(review: Review): Observable<Review> {
         const saveUrl = `${this.reviewsUrl}`;
         return this.http.post<Review>(saveUrl, review);
     }
-
 
     getReview(id: number): Observable<Review>{
         const searchUrl = `${this.reviewsUrl}/` + id;
         return this.http.get<Review>(searchUrl);
 
     }
-    
 
     // Takes a product number as an argument and returns a list of reviews for that product
     getReviewsByProductNumber(prodNum: number, currentPage: number, pageSize: number): Observable<GetResponseReviews>{
         const searchUrl = `${this.reviewsUrl}/search/prodNum?prodNum=${prodNum}&page=${currentPage}&size=${pageSize}`;
         return this.http.get<GetResponseReviews>(searchUrl);
     }
-
 }
-
-
 
 interface GetResponseReviews{
     _embedded: {

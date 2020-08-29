@@ -3,6 +3,7 @@ import { Product } from '../../common/product';
 import { ProductService } from '../../service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Review } from 'src/app/common/review';
+import { ReviewService } from 'src/app/service/review.service';
 
 @Component({
     selector: 'app-product-details',
@@ -21,6 +22,7 @@ export class ProductDetailsComponent implements OnInit{
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _productService: ProductService,
+                private _reviewService: ReviewService,
                 private _router: Router) {}
 
     // The values returned by the methods called here are stored and usable on this component's html page.            
@@ -42,7 +44,7 @@ export class ProductDetailsComponent implements OnInit{
         );
         
         // Selects a list of reviews for the product number that is passed 
-        this._productService.getReviewsByProductNumber(prodNum, 
+        this._reviewService.getReviewsByProductNumber(prodNum, 
                                                 this.currentPage - 1, 
                                                 this.pageSize)
                                                 .subscribe(this.processResults());

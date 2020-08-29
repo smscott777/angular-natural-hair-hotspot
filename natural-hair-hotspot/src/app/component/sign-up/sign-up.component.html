@@ -1,27 +1,36 @@
 <section id="signup">
-    <h3>Sign Up:</h3>
-    <p>
-        Enter email
-        <input type="email" placeholder="ex: myemail@email.com"/>
-    </p>
-    <p>First Name <input type="text"/> </p>
-    <p>
-        Last Name
-        <input type="text"/>
-    </p>
-    <p>
-        Username
-        <input type="text"/>
-    </p>
-    <p>
-        Choose password
-        <input type="password"/>
-    </p>
-    <p>
-        Re-Enter password
-        <input type="password"/>
-    </p>
-    <input type="submit"/>
+    <form [formGroup]="createRegisterForm" (ngSubmit)="registerUser()">
+        <div>
+            <h3>Sign Up:</h3>
+            <p>
+                Enter email
+                <input class="form-control" [formControlName]="'email'" name="email" type="email" placeholder="ex: myemail@email.com"/>
+            </p>
+            <p>
+                Username
+                <input class="form-control" [formControlName]="'username'" name="username" type="text"/>
+            </p>
+            <p>
+                First Name 
+                <input class="form-control" [formControlName]="'firstName'" name="firstName" type="text"/> 
+            </p>
+            <p>
+                Last Name
+                <input class="form-control" [formControlName]="'lastName'" name="lastName" type="text"/>
+            </p>
+            <p>
+                Choose password
+                <input class="form-control" [formControlName]="'password'" name="password" type="password"/>
+            </p>
+            <!--
+            <p>
+                Re-Enter password
+                <input type="password"/>
+            </p>
+            -->
+            <button type="submit">Register</button> 
+        </div>
+    </form>
 </section>
 
 
