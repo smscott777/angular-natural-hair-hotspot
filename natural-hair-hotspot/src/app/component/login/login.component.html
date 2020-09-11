@@ -1,0 +1,18 @@
+<section class="SignUp">
+    <div *ngIf="!isLoggedIn, else elseBlock">
+        <h5>Log In:</h5>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <input class="login_input" [formControlName]="'username'" name="username" type="text" placeholder="Enter your username"/><br>              
+            <input class="login_input" [formControlName]="'password'" name="password"type="password" placeholder="Enter password"/><br>
+            <button class="submit_button" id="login_submit_button" type="submit">Login</button>
+        </form>
+        <button class="sign_button">
+        <a routerLink="/sign-up">
+                Sign Up
+        </a>
+        </button>
+    </div>
+    <ng-template #elseBlock>
+       <h5> Hello, {{loginRequestPayload.username}}</h5>
+    </ng-template>
+</section>        

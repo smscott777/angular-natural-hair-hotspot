@@ -13,6 +13,6 @@ export class SignUpService {
 
     saveUser(user: User): Observable<User>{
         const saveUrl = `${this.signUpUrl}`;
-        return this.http.post<User>(saveUrl, user);
+        return this.http.post<User>(saveUrl, user, { responseType : 'text'});
     }
 }

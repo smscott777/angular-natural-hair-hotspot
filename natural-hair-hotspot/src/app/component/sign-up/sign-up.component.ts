@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from '../../common/user';
 import {SignUpService} from '../../service/sign-up.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-sign-up',
@@ -12,17 +12,18 @@ export class SignUpComponent implements OnInit{
 
     user: User = new User();
     createRegisterForm: FormGroup;
+    registered: boolean;
 
     constructor(private _router: Router,
                 private _signUpService: SignUpService) {}
 
     ngOnInit() {
         this.createRegisterForm = new FormGroup({
-            email: new FormControl(''),
-            username: new FormControl(''),
-            firstName: new FormControl(''),
-            lastName: new FormControl(''),
-            password: new FormControl(''),
+            email: new FormControl(null, [Validators.required, Validators.email]),      // '' Will allow the email to still register blank.
+            username: new FormControl('', Validators.required),
+            firstName: new FormControl('', Validators.required),
+            lastName: new FormControl('', Validators.required),
+            password: new FormControl('', Validators.required),
         });
     }
 
@@ -35,9 +36,10 @@ export class SignUpComponent implements OnInit{
 
         this._signUpService.saveUser(this.user)
                             .subscribe(data => {
-                                console.log('Response', data)
+                                console.log('Response:', data)
+                                this.registered = true;
                             });
-        this._router.navigateByUrl('/');
+        //this._router.navigateByUrl('/');
     }
 /*
     processResults(){

@@ -192,3 +192,12 @@ aside {
 table {
     width: 100%;
 }
+
+input:invalid {
+    border: 2px solid red;
+}
+
+required:after {
+    content: " *";
+    color: red;
+}

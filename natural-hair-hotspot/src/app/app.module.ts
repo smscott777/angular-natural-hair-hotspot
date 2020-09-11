@@ -16,6 +16,8 @@ import { SearchResultsComponent } from './component/search-results/search-result
 import { SignUpComponent } from './component/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './component/nav/nav.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LoginComponent } from './component/login/login.component';
 
 const routes: Routes = [
   {path: 'my-items', component: MyItemsComponent},
@@ -27,6 +29,7 @@ const routes: Routes = [
   {path: 'search/category/:id', component: SearchResultsComponent},
   {path: 'search/:keyword', component: SearchResultsComponent},
   {path: 'sign-up', component: SignUpComponent},
+  {path: 'login', component: LoginComponent},
   {path: '', redirectTo: '/search', pathMatch: 'full' },    //the default view is set to the Search component
   //{path: '**', component: PageNotFoundComponent}
 ];
@@ -40,7 +43,8 @@ const routes: Routes = [
     SearchResultsComponent,
     SearchComponent,
     SignUpComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ const routes: Routes = [
     NgbModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    NgxWebstorageModule.forRoot()
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

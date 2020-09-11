@@ -2,25 +2,43 @@
     <form [formGroup]="createRegisterForm" (ngSubmit)="registerUser()">
         <div>
             <h3>Sign Up:</h3>
+            <span *ngIf="registered">
+                Successful Registration.
+            </span>
             <p>
                 Enter email
-                <input class="form-control" [formControlName]="'email'" name="email" type="email" placeholder="ex: myemail@email.com"/>
+                <input class="form-control" [formControlName]="'email'" name="email" type="email" placeholder="ex: myemail@email.com" required>
+                <span *ngIf="!createRegisterForm.get('email').valid && createRegisterForm.get('email').touched">
+                    Please provide a valid e-mail address.
+                </span>
             </p>
             <p>
                 Username
-                <input class="form-control" [formControlName]="'username'" name="username" type="text"/>
+                <input class="form-control" [formControlName]="'username'" name="username" type="text" >
+                <span *ngIf="!createRegisterForm.get('username').valid && createRegisterForm.get('username').touched">
+                    Please provide a valid username.
+                </span>
             </p>
             <p>
                 First Name 
-                <input class="form-control" [formControlName]="'firstName'" name="firstName" type="text"/> 
+                <input class="form-control" [formControlName]="'firstName'" name="firstName" type="text"/>
+                <span *ngIf="!createRegisterForm.get('firstName').valid && createRegisterForm.get('firstName').touched">
+                    Please provide a valid name.
+                </span> 
             </p>
             <p>
                 Last Name
                 <input class="form-control" [formControlName]="'lastName'" name="lastName" type="text"/>
+                <span *ngIf="!createRegisterForm.get('lastName').valid && createRegisterForm.get('lastName').touched">
+                    Please provide a valid name.
+                </span>
             </p>
             <p>
                 Choose password
-                <input class="form-control" [formControlName]="'password'" name="password" type="password"/>
+                <input class="form-control" [formControlName]="'password'" name="password" type="password" >
+                <span *ngIf="!createRegisterForm.get('password').valid && createRegisterForm.get('password').touched">
+                    Please provide a valid password.
+                </span>
             </p>
             <!--
             <p>
