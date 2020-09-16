@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ProductService } from './service/product.service';
-import { MyItemsComponent } from './component/my-items/my-items.component';
+import { FavProductsComponent } from './component/fav-products/fav-products.component';
 import { ProductDetailsComponent } from './component/product-details/product-details.component';
 import { ReviewComponent } from './component/review/review.component';
 import { SearchComponent } from './component/search/search.component';
@@ -20,7 +20,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './component/login/login.component';
 
 const routes: Routes = [
-  {path: 'my-items', component: MyItemsComponent},
+  {path: 'my-items', component: FavProductsComponent},
   {path: 'products/:prodNum', component: ProductDetailsComponent},
   {path: 'products', component: SearchResultsComponent},
   {path: 'search', component: SearchComponent},
@@ -30,6 +30,7 @@ const routes: Routes = [
   {path: 'search/:keyword', component: SearchResultsComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'favProducts', component: FavProductsComponent},
   {path: '', redirectTo: '/search', pathMatch: 'full' },    //the default view is set to the Search component
   //{path: '**', component: PageNotFoundComponent}
 ];
@@ -37,7 +38,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    MyItemsComponent,
+    FavProductsComponent,
     ProductDetailsComponent,
     ReviewComponent,
     SearchResultsComponent,

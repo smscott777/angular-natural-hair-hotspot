@@ -32,10 +32,8 @@ export class ReviewComponent implements OnInit{
                 private _reviewService: ReviewService,
                 private _router: Router) {
                     this.review = {
-                      //  id: 0,
                         title: '',
                         body: '',
-                  //      prodNum: 0,
                         product: ''
                     }
                 }

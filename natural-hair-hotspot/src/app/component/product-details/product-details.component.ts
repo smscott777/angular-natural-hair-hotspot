@@ -4,6 +4,8 @@ import { ProductService } from '../../service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Review } from 'src/app/common/review';
 import { ReviewService } from 'src/app/service/review.service';
+import { UserService } from 'src/app/service/user.service';
+import { FavoriteProductPayload } from '../../common/favorite-product.payload';
 
 @Component({
     selector: 'app-product-details',
@@ -11,9 +13,10 @@ import { ReviewService } from 'src/app/service/review.service';
 })
 export class ProductDetailsComponent implements OnInit{
 
+    prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
     product: Product = new Product();
-    currentProdNum: number = 1;
     reviews: Review[] = [];
+    favoriteProductPayload: FavoriteProductPayload = new FavoriteProductPayload(); 
 
     // Properties for server-side paging
     currentPage: number = 1;
@@ -22,38 +25,35 @@ export class ProductDetailsComponent implements OnInit{
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _productService: ProductService,
+                private _userService: UserService,
                 private _reviewService: ReviewService,
                 private _router: Router) {}
 
     // The values returned by the methods called here are stored and usable on this component's html page.            
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(() => {
-                this.getProductInfo();
-            })
+            this.getProductInfo();
+        });
     }
 
     // Selects a single product and a list of reviews of that product
     getProductInfo(){
-        const prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
-
         // Selects the single product
-        this._productService.get(prodNum).subscribe(
-            data => {
-                this.product = data;
-            }
-        );
+        this._productService.getProduct(this.prodNum).subscribe(data => {
+            this.product = data;
+        });
         
         // Selects a list of reviews for the product number that is passed 
-        this._reviewService.getReviewsByProductNumber(prodNum, 
-                                                this.currentPage - 1, 
-                                                this.pageSize)
-                                                .subscribe(this.processResults());
-        
+        this._reviewService.getReviewsByProductNumber(
+            this.prodNum, 
+            this.currentPage - 1, 
+            this.pageSize
+        )
+        .subscribe(this.processResults());    
     }
 
-
     // Assigns values to reviews list and page fields that from data received from GET request
-    processResults(){
+    processResults() {
         return data => {
             this.reviews = data._embedded.reviews;
             this.currentPage = data.page.number + 1;
@@ -62,10 +62,20 @@ export class ProductDetailsComponent implements OnInit{
         }
     }
 
-
     // Takes the input from the search bar then searches by the keyword input
-    searchProducts(keyword: string){
+    searchProducts(keyword: string) {
         console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
+    }
+
+    // Saves a product under a specific user's 'Favorite Products' list
+    favProduct() {
+        this.favoriteProductPayload.productProdNum = this.prodNum;
+        this.favoriteProductPayload.username = this._userService.getUsername();
+
+        this._userService.favoriteProduct(this.favoriteProductPayload)
+                            .subscribe(data => {       // Must subscribe to execute b/c patched object is Observable
+                                console.log('Response:', data)
+                            }); 
     }
 }

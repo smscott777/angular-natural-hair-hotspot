@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
 import {User} from '../../common/user';
-import {SignUpService} from '../../service/sign-up.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
     selector: 'app-sign-up',
@@ -11,15 +10,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SignUpComponent implements OnInit{
 
     user: User = new User();
-    createRegisterForm: FormGroup;
+    registerForm: FormGroup;
     registered: boolean;
 
-    constructor(private _router: Router,
-                private _signUpService: SignUpService) {}
+    constructor(private _userService: UserService) {}
 
     ngOnInit() {
-        this.createRegisterForm = new FormGroup({
-            email: new FormControl(null, [Validators.required, Validators.email]),      // '' Will allow the email to still register blank.
+        this.registerForm = new FormGroup({
+            email: new FormControl(null, [Validators.required, Validators.email]),  // '' Would still allow user to register when email is blank.
             username: new FormControl('', Validators.required),
             firstName: new FormControl('', Validators.required),
             lastName: new FormControl('', Validators.required),
@@ -27,29 +25,19 @@ export class SignUpComponent implements OnInit{
         });
     }
 
+    // Takes values input to the register form to register a new user.
     registerUser(){
-        this.user.email = this.createRegisterForm.get('email').value;
-        this.user.username = this.createRegisterForm.get('username').value;
-        this.user.firstName = this.createRegisterForm.get('firstName').value;
-        this.user.lastName = this.createRegisterForm.get('lastName').value;
-        this.user.password = this.createRegisterForm.get('password').value;
+        this.user.email = this.registerForm.get('email').value;
+        this.user.username = this.registerForm.get('username').value;
+        this.user.firstName = this.registerForm.get('firstName').value;
+        this.user.lastName = this.registerForm.get('lastName').value;
+        this.user.password = this.registerForm.get('password').value;
 
-        this._signUpService.saveUser(this.user)
-                            .subscribe(data => {
-                                console.log('Response:', data)
-                                this.registered = true;
-                            });
-        //this._router.navigateByUrl('/');
+        // The value of data is the ResponseEntity body from User Controller (Backend)
+        this._userService.registerUser(this.user)
+                                .subscribe(data => {
+                                    console.log('Response:', data)  
+                                    this.registered = true;
+                                });
     }
-/*
-    processResults(){
-        return data => {
-            this.user.email = data.user.email;
-            this.user.username = data.user.username;
-            this.user.firstName = data.user.firstName;
-            this.user.lastName = data.user.lastName;
-            this.user.password = data.user.password;
-        }
-    }
-*/
 }

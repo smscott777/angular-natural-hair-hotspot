@@ -33,16 +33,14 @@ export class ProductService {
     }    
 
     // Takes a product number as an argument and returns that single product from the entire database of products
-    get(productNum: number): Observable<Product>{
+    getProduct(productNum: number): Observable<Product>{
         const productDetailsUrl = `${this.productsUrl}/${productNum}`;
         return this.http.get<Product>(productDetailsUrl);
     }
 
-    getAllProducts(): Observable<Array<Product>> {
-        const searchUrl = `${this.productsUrl}/search`;
-        return this.http.get<Array<Product>>(searchUrl);
+    getFavoriteProducts(username: string): Observable<GetResponseFavProducts> {
+        return this.http.get<GetResponseFavProducts>(`${this.productsUrl}/search/favoriteProducts?username=${username}`);
     }
-
 }
 
 interface GetResponseProducts{
@@ -57,14 +55,9 @@ interface GetResponseProducts{
     }
 }
 
-interface GetResponseReviews{
+// Specifically for the Favorite Products list where pagination is not used (yet)
+interface GetResponseFavProducts{
     _embedded: {
-        reviews: Review[];
-    },
-    page: {
-        size: number,
-        totalElements: number,
-        totalPages: number,
-        number: number
+        products: Product[];
     }
 }

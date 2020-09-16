@@ -1,0 +1,17 @@
+<h3>Your Saved Items</h3>
+
+<table *ngFor="let product of favoriteProducts">
+    <tr>
+            <a id="product_image" routerLink="/products/{{product.prodNum}}">
+                <img [src]="product.imageUrl" height="150" width="150"/>
+            </a>   
+    </tr>
+    <tfoot>
+        <a id="product_name" routerLink="/products/{{product.prodNum}}">
+            {{product.name}}
+        </a>
+    </tfoot>
+</table>
+<div *ngIf="favoriteProducts?.length == 0">
+    No Products Found
+</div> 

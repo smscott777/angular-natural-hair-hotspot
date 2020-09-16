@@ -10,19 +10,7 @@
         <button>Filter</button>
         <input type="checkbox" value=""/>
     </aside>
-<!--
-    <div *ngFor="let product of products">
-        <a id="product_image" routerLink="/products/{{product.prodNum}}">
-            <img [src]="product.imageUrl" height="150" width="150"/>
-        </a>
-        <a id="product_name" routerLink="/products/{{product.prodNum}}">
-            {{product.name}}
-        </a>
-    </div>
-    <div *ngIf="products?.length == 0">
-        No Products Found
-    </div>
--->
+
     <table *ngFor="let product of products">
         <tr>
             
@@ -39,8 +27,6 @@
     </table>
     <div *ngIf="products?.length == 0">
         No Products Found
-    </div>
-
-    
+    </div> 
 
 </div>
