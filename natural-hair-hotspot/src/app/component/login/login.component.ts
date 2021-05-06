@@ -12,16 +12,16 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginRequestPayload: LoginRequestPayload;
-  loginForm: FormGroup;
-  //isLoggedIn: boolean = false;
+  loginForm: FormGroup; 
   isLoggedIn: any = false;
+  loggedInUsername: any = null;
   
 
   constructor(private _userService: UserService,
               private _router: Router) {
       this.loginRequestPayload = {
         username: '',
-        password: '',
+        password: '', 
       };
    }
 
@@ -38,13 +38,29 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.loginRequestPayload)
                       .subscribe(data => {
-                        this._router.navigateByUrl('');
                         this.isLoggedIn = this._userService.loggedIn;
+                        this.loggedInUsername = this._userService.getUsername();
+                        this._router.navigateByUrl(''); 
 
                         console.log('Login Successful')
-                        console.log('Logged in User:', this.loginRequestPayload.username)            
-                        console.log('Logged in:', this.isLoggedIn)            
+                        console.log('Logged in User:', this.loggedInUsername)     
+                        console.log('local storage: ', this._userService.getLocalStorage())       
                       });
+  }
+    
+  // Logs out a user and clears the Login input boxes.
+  logout() {
+    this._userService.logout().subscribe();
+    this.isLoggedIn = false;
 
+    this.loginForm.setValue({
+      username: '',
+      password: ''
+    });
+  
+    this._router.navigateByUrl('');
+
+    console.log('Logged out successfully.')
+    console.log('local storage: ', this._userService.getLocalStorage())       
   }
 }

@@ -24,14 +24,12 @@ export class SearchResultsComponent implements OnInit{
                 private _router: Router
                 ) {}
 
-
     // The values returned by the methods called here are stored and usable on this component's html page.            
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(()=>{
             this.listProducts();  
         })
     }
-
 
     // Does a search of the products by either the product's name (containing) or the category
     listProducts(){
@@ -46,7 +44,6 @@ export class SearchResultsComponent implements OnInit{
             this.handleSearchByCategory();
         } 
     }
-
 
     // This method takes the stored input keyword from the console then searches products by this keyword
     handleSearchProducts(){
@@ -64,9 +61,7 @@ export class SearchResultsComponent implements OnInit{
                 this.pageSize)
                 .subscribe(this.processResults());
         }
-
     }
-
 
     // When a category button is clicked from the nav sidebar, this method takes the stored category id.
     // Then searches products by this category id
@@ -78,7 +73,6 @@ export class SearchResultsComponent implements OnInit{
                                                 this.pageSize)
                                                 .subscribe(this.processResults());
     }
-
 
     // Assigns values to reviews list and page fields that from data received from GET request
     processResults(){
@@ -97,4 +91,3 @@ export class SearchResultsComponent implements OnInit{
         this._router.navigateByUrl('/search/'+keyword);
     }
 }
-

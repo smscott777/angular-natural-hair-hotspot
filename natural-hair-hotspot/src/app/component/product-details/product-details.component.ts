@@ -20,7 +20,7 @@ export class ProductDetailsComponent implements OnInit{
 
     // Properties for server-side paging
     currentPage: number = 1;
-    pageSize: number = 5;
+    pageSize: number = 20; // The # of reviews that will appear per page
     totalRecords: number = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
@@ -34,6 +34,8 @@ export class ProductDetailsComponent implements OnInit{
         this._activatedRoute.paramMap.subscribe(() => {
             this.getProductInfo();
         });
+
+        console.log('test getUsername: ', this._userService.getUsername());
     }
 
     // Selects a single product and a list of reviews of that product
@@ -74,7 +76,7 @@ export class ProductDetailsComponent implements OnInit{
         this.favoriteProductPayload.username = this._userService.getUsername();
 
         this._userService.favoriteProduct(this.favoriteProductPayload)
-                            .subscribe(data => {       // Must subscribe to execute b/c patched object is Observable
+                            .subscribe(data => {       
                                 console.log('Response:', data)
                             }); 
     }

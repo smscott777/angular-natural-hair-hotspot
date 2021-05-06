@@ -1,17 +1,17 @@
 <h3>Your Saved Items</h3>
-
-<table *ngFor="let product of favoriteProducts">
-    <tr>
-            <a id="product_image" routerLink="/products/{{product.prodNum}}">
-                <img [src]="product.imageUrl" height="150" width="150"/>
-            </a>   
-    </tr>
-    <tfoot>
+<div class="list_container" *ngIf="isLoggedIn(), else elseBlock">
+    <div class="list_container_item" *ngFor="let product of favoriteProducts">
+        <a id="product_image" routerLink="/products/{{product.prodNum}}">
+            <img [src]="product.imageUrl" height="150" width="150"/>
+        </a>   
         <a id="product_name" routerLink="/products/{{product.prodNum}}">
             {{product.name}}
         </a>
-    </tfoot>
-</table>
-<div *ngIf="favoriteProducts?.length == 0">
-    No Products Found
-</div> 
+    </div>
+    <div *ngIf="favoriteProducts?.length == 0">
+        You have no saved items.
+    </div> 
+</div>
+<ng-template #elseBlock>
+    Login to See Saved Items.
+</ng-template> 

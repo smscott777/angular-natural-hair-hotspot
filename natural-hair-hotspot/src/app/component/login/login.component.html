@@ -13,6 +13,7 @@
         </button>
     </div>
     <ng-template #elseBlock>
-       <h5> Hello, {{loginRequestPayload.username}}</h5>
+       <h5> Hello, {{this.loggedInUsername}}</h5>
+       <button (click)="logout()">Log out</button>
     </ng-template>
 </section>        

@@ -1,4 +1,4 @@
-<div class="search_bar">
+<div class="search_bar" id ="search_results_bar">
     <input id="searchbar" type="search" #searchInput (keyup.enter)="searchProducts(searchInput.value)" placeholder="(Search)"/>
     <button class="submit_button" type="submit" (click)="searchProducts(searchInput.value)">Search</button>
 </div>
@@ -6,27 +6,16 @@
 <div>
     <h3>Search Results</h3>
 
-    <aside>
-        <button>Filter</button>
-        <input type="checkbox" value=""/>
-    </aside>
-
-    <table *ngFor="let product of products">
-        <tr>
-            
-                <a id="product_image" routerLink="/products/{{product.prodNum}}">
-                    <img [src]="product.imageUrl" height="150" width="150"/>
-                </a>
-             
-        </tr>
-        <tfoot>
+    <div class="list_container"> 
+        <div class="list_container_item" *ngFor="let product of products">
+            <a id="product_image" routerLink="/products/{{product.prodNum}}">
+                <img [src]="product.imageUrl" height="150" width="150"/>
+            </a>
             <a id="product_name" routerLink="/products/{{product.prodNum}}">
                 {{product.name}}
             </a>
-        </tfoot>
-    </table>
+    </div>      
     <div *ngIf="products?.length == 0">
         No Products Found
-    </div> 
-
+    </div>    
 </div>

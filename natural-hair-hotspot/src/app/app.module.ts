@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
-
 import { AppComponent } from './app.component';
 import { ProductService } from './service/product.service';
 import { FavProductsComponent } from './component/fav-products/fav-products.component';

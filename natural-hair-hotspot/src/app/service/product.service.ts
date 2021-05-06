@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product';
-import { Review } from '../common/review';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +34,12 @@ export class ProductService {
     getProduct(productNum: number): Observable<Product>{
         const productDetailsUrl = `${this.productsUrl}/${productNum}`;
         return this.http.get<Product>(productDetailsUrl);
+    }
+
+    // Returns a list of all products.
+    getAllProducts(): Observable<Array<Product>> {
+        const searchUrl = `${this.productsUrl}/search`;
+        return this.http.get<Array<Product>>(searchUrl);
     }
 
     getFavoriteProducts(username: string): Observable<GetResponseFavProducts> {

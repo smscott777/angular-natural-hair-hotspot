@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequestPayload } from '../component/login/login-request.payload';
@@ -14,6 +14,7 @@ import { User } from '../common/user';
 export class UserService {
 
    private baseUrl = "http://localhost:9090/api/v1/auth";
+   private loggedInStatus: boolean;
 
     @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
     @Output() username: EventEmitter<string> = new EventEmitter();
@@ -33,22 +34,41 @@ export class UserService {
                         .pipe(map(data => {
                             this.localStorage.store('username', data.username);
 
+                            this.loggedInStatus = true;
+
+
                             this.loggedIn.emit(true);
                             this.username.emit(data.username);
                             return true;
                         }));
     }
 
-    getUsername() {
+    logout() {
+        const logoutUrl = `http://localhost:9090/api/v1/logout`;
+
+        this.localStorage.clear('username');
+        this.localStorage.clear;
+        this.loggedIn.emit(false);
+        //return false;
+        this.loggedInStatus = false;
+
+        return this.http.get(logoutUrl, {responseType : 'json'});
+    }
+
+    getLoggedInStatus() {
+        return this.loggedInStatus;
+    }
+ 
+    getUsername() { 
         return this.localStorage.retrieve('username');
+    }
+
+    getLocalStorage() {
+        return this.localStorage;
     }
 
     favoriteProduct(favoriteProductPayload: FavoriteProductPayload): Observable<FavoriteProductPayload> {
         const favoriteProductUrl = `${this.baseUrl}/favoriteProduct`;
-        //return this.http.patch<FavoriteProductPayload>(favoriteProductUrl, favoriteProductPayload, { responseType : 'text'});
         return this.http.post<FavoriteProductPayload>(favoriteProductUrl, favoriteProductPayload, { responseType : 'text'});
-
     }
-
-    
-} 
+}

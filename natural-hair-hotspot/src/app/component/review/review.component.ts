@@ -34,7 +34,7 @@ export class ReviewComponent implements OnInit{
                     this.review = {
                         title: '',
                         body: '',
-                        product: ''
+                        product: '',
                     }
                 }
 
@@ -61,7 +61,7 @@ export class ReviewComponent implements OnInit{
     getProductInfo(){
         const prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
 
-        this._productService.get(prodNum).subscribe(
+        this._productService.getProduct(prodNum).subscribe(
             data => {
                 this.product = data;
             }
@@ -73,6 +73,7 @@ export class ReviewComponent implements OnInit{
         this._router.navigateByUrl('/search/'+keyword);
     }
 
+    // Creates a new review then navigates back to the product's page
     createReview() {
         const prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
 
@@ -80,22 +81,14 @@ export class ReviewComponent implements OnInit{
         this.review.body = this.createReviewForm.get('body').value;
         this.review.product = 'product/'+prodNum;
 
-        this._reviewService.saveReview(this.review)
-                                    .subscribe(this.processResults());
+        this._reviewService.saveReview(this.review).subscribe();
+        this._router.navigateByUrl('/products/'+prodNum);
             
 
         console.log('title', this.review.title);
         console.log('body', this.review.body);
         console.log('prodNum', prodNum);
         console.log('new review', this.review);
-    }
-
-    processResults(){
-        return data => {
-            this.review.title = data.review.title;
-            this.review.body = data.review.body;
-            this.review.product = data.review.product;
-        }
     }
 
 }

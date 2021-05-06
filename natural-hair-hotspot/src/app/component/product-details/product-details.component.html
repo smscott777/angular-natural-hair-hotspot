@@ -24,7 +24,6 @@
 <section id="my_items">
     <h4>
         Save to My Items
- <!--       <input type="radio" (click)="favProduct()" />   -->
         <button type="submit" (click)="favProduct()">Save</button>
     </h4>
 </section>
@@ -36,12 +35,8 @@
         <a routerLink="/reviews/{{product.prodNum}}">Create a Review</a>
     </h3>
     
-    <input id="search_reviews" type="search" placeholder="Search Reviews"/>
-    <input type="submit"/>
-
     <div id="review_list" *ngFor="let review of reviews">
         <aside>Review 1 Preview Media</aside>
-        <aside>Fav Review<input type="checkbox"/></aside>
         <h4><a href="">{{review.title}}</a></h4>
         <div>{{review.body}}</div>
             

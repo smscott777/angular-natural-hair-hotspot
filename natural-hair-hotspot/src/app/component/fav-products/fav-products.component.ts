@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import {Product} from '../../common/product';
 import {ProductService} from '../../service/product.service';
@@ -18,6 +17,7 @@ export class FavProductsComponent implements OnInit{
     // Populates a list of favorite products as soon as the page is loaded.            
     ngOnInit() {
         this.getFavoriteProducts();
+        console.log("Logged in status: ", this.isLoggedIn());
     }
 
     // Gets the logged in user's username and returns a list of their favorite products.
@@ -29,5 +29,10 @@ export class FavProductsComponent implements OnInit{
                                 this.favoriteProducts = data._embedded.products;
                                 console.log('data: ', data);
                             });
+    }
+
+    // Returns true if a user is logged in. Otherwise returns false.
+    isLoggedIn() {
+        return this._userService.getLoggedInStatus();
     }
 }
