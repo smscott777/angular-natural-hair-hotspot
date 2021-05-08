@@ -12,7 +12,6 @@ export class SearchComponent implements OnInit{
     ngOnInit() {}
 
     // Takes a keyword input specified in the html page then navigates to the path specified in the app.module
-    //***THIS ONE DOES SEARCH BY INGREDIENT */
     searchProducts(keyword: string){
         console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);

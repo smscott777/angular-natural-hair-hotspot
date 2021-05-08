@@ -4,7 +4,7 @@
 </section>
 
 <section id="ingredient_list">
-    <h3>Ingredient List</h3>
+    <h3>Ingredients</h3>
     <p>{{product.ingredients}}</p>
 </section>
 
@@ -21,11 +21,12 @@
 </section>
 
 
-<section id="my_items">
+<section id="my_items"> 
     <h4>
         Save to My Items
-        <button type="submit" (click)="favProduct()">Save</button>
+        <button type="submit" (click)="favProduct()">Save</button>  
     </h4>
+    {{this.loginMessage}} 
 </section>
 
 

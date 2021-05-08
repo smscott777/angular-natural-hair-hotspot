@@ -3,7 +3,7 @@
 <section id="center">
     <p>
         <h1 id="center_head"> What are you looking for?</h1>
-        <input id="center_search" type="text" #searchInput (keyup.enter)="searchProducts(searchInput.value)" class="form-control" placeholder="Enter a product, ingredient, reviewer, etc."/>
+        <input id="center_search" type="text" #searchInput (keyup.enter)="searchProducts(searchInput.value)" class="form-control" placeholder="Enter a product or ingredient."/>
         <button class="submit_button" type="submit" (click)="searchProducts(searchInput.value)">Search</button>
     <p>
         <h3>

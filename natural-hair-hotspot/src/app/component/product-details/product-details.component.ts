@@ -23,6 +23,9 @@ export class ProductDetailsComponent implements OnInit{
     pageSize: number = 20; // The # of reviews that will appear per page
     totalRecords: number = 0;
 
+    isLoggedIn: any;
+    loginMessage: string = "";
+
     constructor(private _activatedRoute: ActivatedRoute,
                 private _productService: ProductService,
                 private _userService: UserService,
@@ -75,9 +78,16 @@ export class ProductDetailsComponent implements OnInit{
         this.favoriteProductPayload.productProdNum = this.prodNum;
         this.favoriteProductPayload.username = this._userService.getUsername();
 
-        this._userService.favoriteProduct(this.favoriteProductPayload)
-                            .subscribe(data => {       
-                                console.log('Response:', data)
-                            }); 
+        if(this.favoriteProductPayload.username != null) {
+            this.isLoggedIn = true;
+            this._userService.favoriteProduct(this.favoriteProductPayload)
+                                .subscribe(data => {       
+                                    console.log('Response:', data)
+                                }); 
+        }
+        else{
+            this.isLoggedIn = false;
+            this.loginMessage = "Login to save.";
+        }
     }
 }

@@ -16,7 +16,7 @@ export class SearchResultsComponent implements OnInit{
 
     // Properties for server-side paging
     currentPage: number = 1;
-    pageSize: number;   // Max number of products to be listed as search results. Infinite if not inititialized.
+    pageSize: number = 50;   // Max number of products to be listed as search results. 
     totalRecords: number = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
@@ -27,7 +27,7 @@ export class SearchResultsComponent implements OnInit{
     // The values returned by the methods called here are stored and usable on this component's html page.            
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(()=>{
-            this.listProducts();  
+            this.listProducts();
         })
     }
 
@@ -54,8 +54,13 @@ export class SearchResultsComponent implements OnInit{
                                             this.pageSize)
                                             .subscribe(this.processResults());
 
-        // If the keyword is not in the product's name, it will search in the ingredients list
-        if(this.products.length == 0){
+
+        // If the search by name returns results, return so as to not search by ingredient                                    
+        if(this.products.length > 0) {
+            return;
+        }                                    
+        // Otherwise if the keyword is not in the product's name, it will search in the ingredients list
+        else if(this.products.length == 0){
             this._productService.getProductsByIngredient(keyword,
                 this.currentPage - 1,
                 this.pageSize)
@@ -85,8 +90,8 @@ export class SearchResultsComponent implements OnInit{
     }
 
     // Takes a keyword input specified in the html page then navigates to the path specified in the app.module
-    //****DOES NOT SEARCH BY THE SAME INGREDIENT THAT WAS THE 1ST SEARCH */
     searchProducts(keyword: string){
+        this.products = []; // Empties list before each new search. Without this, every other search returns no products found
         console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
     }

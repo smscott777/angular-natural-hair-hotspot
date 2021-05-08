@@ -166,8 +166,10 @@ aside {
     float: right;
     width: 30%;
     border: double #fa94bb65 20px;
+    text-transform: uppercase;
     
 }
+
 
 .product_img {
     margin: auto;
@@ -227,4 +229,8 @@ required:after {
 
 #search_results_bar {
     margin: 0;
+}
+
+#product_name {
+    text-transform: capitalize;
 }
