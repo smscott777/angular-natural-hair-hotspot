@@ -6,6 +6,7 @@ import { Review } from 'src/app/common/review';
 import { ReviewService } from 'src/app/service/review.service';
 import { UserService } from 'src/app/service/user.service';
 import { FavoriteProductPayload } from '../../common/favorite-product.payload';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-product-details',
@@ -25,6 +26,8 @@ export class ProductDetailsComponent implements OnInit{
 
     isLoggedIn: any;
     loginMessage: string = "";
+    response: any;  // The response message from the server when favoriting a product
+
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _productService: ProductService,
@@ -83,6 +86,10 @@ export class ProductDetailsComponent implements OnInit{
             this._userService.favoriteProduct(this.favoriteProductPayload)
                                 .subscribe(data => {       
                                     console.log('Response:', data)
+                                    this.response = data;
+                                }, (error: HttpErrorResponse) => {
+                                    this.response = error.error;
+                                    console.log('Error:', error.error);
                                 }); 
         }
         else{

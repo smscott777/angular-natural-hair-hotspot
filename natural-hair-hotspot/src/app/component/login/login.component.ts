@@ -26,6 +26,11 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this._userService.getUsername() != null) {
+      this._userService.logout().subscribe(); // Ensures last user is not still logged in on app start
+    } else {
+      console.log('Start. No user logged in.');
+    }
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)

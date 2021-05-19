@@ -2,18 +2,16 @@
     <div *ngIf="!isLoggedIn, else elseBlock">
         <h5>Log In:</h5>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <input class="login_input" [formControlName]="'username'" name="username" type="text" placeholder="Enter your username"/><br>              
-            <input class="login_input" [formControlName]="'password'" name="password"type="password" placeholder="Enter password"/><br>
-            <button class="submit_button" id="login_submit_button" type="submit">Login</button>
+            <input  class="form_control" id="username_input" [formControlName]="'username'" name="username" type="text" placeholder="Enter your username"/><br>              
+            <input  class="form_control" id="password_input" [formControlName]="'password'" name="password"type="password" placeholder="Enter password"/><br>
+            <button class="light_button" id="login_submit_button" type="submit">Login</button>
         </form>
-        <button class="sign_button">
-            <a routerLink="/sign-up">
-                Sign Up
-            </a>
+        <button class="light_button" routerLink="/sign-up">     
+            Sign Up     
         </button>
     </div>
     <ng-template #elseBlock>
-       <h5> Hello, {{this.loggedInUsername}}</h5>
-       <button (click)="logout()">Log out</button>
+       <h5 id="username"> Hello, {{this.loggedInUsername}}</h5>
+       <button class="light_button" (click)="logout()">Log out</button>
     </ng-template>
 </section>        

@@ -13,10 +13,11 @@ export class SearchResultsComponent implements OnInit{
     products: Product[] = [];
     searchByNameMode: boolean = false;
     searchByCategoryMode: boolean = false;
+    searchCounter: number = 0;
 
     // Properties for server-side paging
     currentPage: number = 1;
-    pageSize: number = 50;   // Max number of products to be listed as search results. 
+    pageSize: number = 100;   // Max number of products to be listed as search results. 
     totalRecords: number = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
@@ -52,20 +53,7 @@ export class SearchResultsComponent implements OnInit{
         this._productService.getProductsByName(keyword,
                                             this.currentPage - 1,
                                             this.pageSize)
-                                            .subscribe(this.processResults());
-
-
-        // If the search by name returns results, return so as to not search by ingredient                                    
-        if(this.products.length > 0) {
-            return;
-        }                                    
-        // Otherwise if the keyword is not in the product's name, it will search in the ingredients list
-        else if(this.products.length == 0){
-            this._productService.getProductsByIngredient(keyword,
-                this.currentPage - 1,
-                this.pageSize)
-                .subscribe(this.processResults());
-        }
+                                            .subscribe(this.processResults());  
     }
 
     // When a category button is clicked from the nav sidebar, this method takes the stored category id.
@@ -82,16 +70,35 @@ export class SearchResultsComponent implements OnInit{
     // Assigns values to reviews list and page fields that from data received from GET request
     processResults(){
         return data => {
+            const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
+
             this.products = data._embedded.products;
             this.currentPage = data.page.number + 1;
             this.totalRecords = data.page.totalElements;
             this.pageSize = data.page.size;
+            
+            console.log('Current Search Results:', this.products.length);
+
+            if(this.products.length == 0) {     // If the keyword is not in the product's name, it will search in the ingredients list
+                this.searchCounter++;
+
+                if(this.searchCounter > 1) { // Prevents infinite searching if no product exists with given keyword
+                    return;
+                }
+
+                this._productService.getProductsByIngredient(keyword,
+                    this.currentPage - 1,
+                    this.pageSize)
+                    .subscribe(this.processResults());
+            } else {    // If the search by name returns results logs it in console                                    
+                console.log('List populated by name.');
+            } 
         }
     }
 
     // Takes a keyword input specified in the html page then navigates to the path specified in the app.module
     searchProducts(keyword: string){
-        this.products = []; // Empties list before each new search. Without this, every other search returns no products found
+        this.searchCounter = 0;
         console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
     }

@@ -7,6 +7,9 @@
         <a id="product_name" routerLink="/products/{{product.prodNum}}">
             {{product.name}}
         </a>
+        <div>
+            <a id="remove_favorite"><a id="x">x </a>Remove</a>
+        </div>
     </div>
     <div *ngIf="favoriteProducts?.length == 0">
         You have no saved items.

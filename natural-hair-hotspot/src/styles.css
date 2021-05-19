@@ -1,7 +1,7 @@
 body {
     background-color: #FFFFFF;
     color: #000000af;
-    font-family: "Noto Sans", sans-serif;
+    font-family: Geneva, sans-serif;
     
 }
 
@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5 {
 
 }
 
- h2, h3 {
+h2, h3 {
     background-color: #fa94bb65;
     padding: 10px;   
 
@@ -19,28 +19,28 @@ h1, h2, h3, h4, h5 {
 h1, h2 {
     margin: auto;
     text-align: center;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: Geneva, sans-serif;
 }
 
 #secondary_title {
+    color: black;
     margin: auto;
     text-align: center;
     padding-right: 8%;
-    font-size: 1.3em;
 }
 
 #main_title {
+    color: white;
     padding: 30px;
-    font-size: 2.5em;
+    font-size: 3em;
+    text-shadow: 0 3px #999;
 }
 
+
 header {
-    background-color: #fa94bb65;
-    color: #ff2f7f;
+    background-color: #ff2f7f;
     padding: 1%;   
     border: double white 15px;
-
-
 }
 
 
@@ -60,48 +60,58 @@ h5 {
 }
 
 nav {
-    background-color: #fa94bb65;
+    background-color: white;
     width: 12%;
     float: left;
-    border: double white 10px; 
+    border: double #ff2f7f 20px; 
     font-weight: bold; 
     
 }
 
 a {
     color: #ff2f7f;
+}
 
+a:hover {
+    color: #fa94bbf5;
 }
 
 button {
-    background-color: #fa94bb65;
-    border: double #ff2f7f;
+    background-color: #ff2f7f;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 12px;
     font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px #999;
+}
+
+button:hover {
+    background-color: #fa94bb65;
+    color: #ff2f7f;
 }
 
 .nav_button {
+    background-color: #ff2f7f;
+    color: white;
     width: 70%;
+    border: white;
+    margin: 4px;
+    padding: 6px;
 }
 
-.sign_button {
-    width: 52%;
+.light_button {
+    background-color: white;
+    color: #ff2f7f;
+    border: solid 1px #fa94bb65;
+    box-shadow: 0 3px #5e5e5e;
 }
 
-
-.submit_button {
-    background-color: #fa94bb65;
-    border: solid #ff2f7f;
-    width: 10%
+.light_button:hover {
+    background-color: #faafccdc;
+    color: white;
 }
-
-#login_submit_button {
-    width: 40%;
-}
-
-.login_input {
-    width: 85%;
-}
-
 
 aside {
     float: right;
@@ -115,7 +125,17 @@ aside {
     width: 11%;
 }
 
+#username_input {
+    width: 85%;
+}
 
+#password_input {
+    width: 85%;
+}
+
+#username {
+    color: white;
+}
 
 
 .bordered {
@@ -124,26 +144,27 @@ aside {
 }
 
 
-
-
 #center {
-    background-color: #fa94bb65;
+    background-color: #ff2f7f;
     margin: auto;
+    padding: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
     text-align: center;
     width: 60%;
     position: relative;
     top: 80px;
-    border: double #FFFFFF 40px;
+    border: double #FFFFFF 25px;
 }
 
 #center_head {
     background-color: transparent;
+    color: white;
     border: none;
     padding: 2%;
 }
 
 #center_search {
-    
     width: 50%;
     height: 40px;
 }
@@ -165,7 +186,7 @@ aside {
     background-color: #FFFFFF;
     float: right;
     width: 30%;
-    border: double #fa94bb65 20px;
+    border: double #ff2f7f 20px;
     text-transform: uppercase;
     
 }
@@ -179,9 +200,17 @@ aside {
 }
 
 
-
 #product_img_review {
     height: 300px;
+}
+
+#product_name_review {
+    background-color: transparent;
+
+}
+
+#review_input {
+    margin-top: 3em;
 }
 
 
@@ -193,15 +222,6 @@ aside {
 
 table {
     width: 100%;
-}
-
-input:invalid {
-    border: 2px solid red;
-}
-
-required:after {
-    content: " *";
-    color: red;
 }
 
 .list_container {
@@ -227,10 +247,31 @@ required:after {
     margin: 0 auto;
 }
 
+#product_details_name {
+    background-color: transparent;
+}
+
 #search_results_bar {
     margin: 0;
 }
 
-#product_name {
-    text-transform: capitalize;
+.form_control {
+    background-color: #e7e7e7ea;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+#register_form {
+    margin: auto;
+    padding: auto;
+    width: 65%;
+}
+
+#remove_favorite {
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+#x {
+    font-weight: bolder;
 }

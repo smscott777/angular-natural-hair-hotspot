@@ -9,7 +9,7 @@
         
     <div class="product_img" id="product_img_review">
            
-        <h2>{{product.name}}</h2>
+        <h2 id="product_name_review">{{product.name}}</h2>
                     
         <p id="primary_img">
             <a routerLink="/products/{{product.prodNum}}">
@@ -21,7 +21,7 @@
     </div>
    
     <form [formGroup]="createReviewForm" (ngSubmit)="createReview()">
-        <div>
+        <div id="review_input">
             <h3>Write Review</h3>
 
             <p>Title Your Review: <input class="form-control" type="text" [formControlName]="'title'" name="title"/></p>
@@ -30,18 +30,8 @@
                 Add a Summary: 
                 <textarea class="form-control" [formControlName]="'body'"  name="body" cols="50" rows="10"></textarea>
             </p>
-            
-            
-
-            <p>
-                Add Media:
-                <button>
-                    <a href="">Upload Pic/Video</a>
-                </button>
-            </p>
 
             <button>Go Back</button>
-            <button>Save Changes</button>
             <button type="submit">Post Review</button>
         </div>
     

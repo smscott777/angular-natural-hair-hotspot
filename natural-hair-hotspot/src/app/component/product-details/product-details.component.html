@@ -10,13 +10,9 @@
 
 
 <section class="product_img">
-    <h2>{{product.name}}</h2>
+    <h2 id="product_details_name">{{product.name}}</h2>
     
-    <p id="primary_img"><img src="{{product.imageUrl}}" alt="Specific Product Image 1" width="500" height="500"></p>
-    <p id="secondary_img">
-        <img src="none" alt="Specific Product Image 2" width="100" height="100">
-        <img src="none" alt="Specific Product Image 3">
-    </p>
+    <div id="primary_img"><img src="{{product.imageUrl}}" alt="Specific Product Image 1" width="500" height="500"></div>
     
 </section>
 
@@ -26,19 +22,21 @@
         Save to My Items
         <button type="submit" (click)="favProduct()">Save</button>  
     </h4>
-    {{this.loginMessage}} 
+    {{this.loginMessage}}
+    {{response}}
 </section>
 
 
 <section class="bordered">
     <h3>Reviews</h3>
+    {{reviews.length}} reviews
     <h3>
         <a routerLink="/reviews/{{product.prodNum}}">Create a Review</a>
     </h3>
     
     <div id="review_list" *ngFor="let review of reviews">
         <aside>Review 1 Preview Media</aside>
-        <h4><a href="">{{review.title}}</a></h4>
+        <h4>{{review.title}}</h4>
         <div>{{review.body}}</div>
             
     </div>
