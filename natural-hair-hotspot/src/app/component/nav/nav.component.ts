@@ -11,9 +11,11 @@ export class NavComponent implements OnInit{
 
     ngOnInit(){}
 
-    // Searches by category id
+    /**
+     * Searches by category id when the corresponding button is clicked.
+     * @param id The category id.
+     */
     searchByCategoryId(id: number){
-        console.log('id', id);
         this._router.navigateByUrl('/search/category/'+id);
     }
 }

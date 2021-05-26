@@ -1,4 +1,4 @@
 export class FavoriteProductPayload {
-    productProdNum: number;
+    productProdNum: any;
     username: string;
 }

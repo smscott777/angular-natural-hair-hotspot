@@ -24,7 +24,8 @@ h1, h2 {
 
 #secondary_title {
     color: black;
-    margin: auto;
+    margin-left: 20%;
+    margin-right: 20%;
     text-align: center;
     padding-right: 8%;
 }
@@ -59,13 +60,16 @@ h5 {
     font-size: 1em;
 }
 
+#login {
+    color: white;
+}
+
 nav {
     background-color: white;
     width: 12%;
     float: left;
     border: double #ff2f7f 20px; 
-    font-weight: bold; 
-    
+    font-weight: bold;
 }
 
 a {
@@ -81,6 +85,7 @@ button {
     color: white;
     border: none;
     padding: 5px;
+    margin: 2px;
     border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
@@ -121,8 +126,10 @@ aside {
 .SignUp {
     position: relative;
     bottom: 35px;
+    right: 1%;
     float: right;
     width: 11%;
+    
 }
 
 #username_input {
@@ -213,12 +220,14 @@ aside {
     margin-top: 3em;
 }
 
-
 #my_items {
     width: 10%;
 }
 
-
+#fav_login_prompt {
+    margin-left: 20%;
+    margin-right: 20%;
+}
 
 table {
     width: 100%;
@@ -274,4 +283,43 @@ table {
 
 #x {
     font-weight: bolder;
+}
+
+#save_button {
+    background-color: #ff2f7f;
+    display: inline-block;
+    height: 10px;
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+    transform: rotate(-45deg);
+    width: 10px;
+    border-radius: 0px;
+    left: 130px;
+}
+  
+#save_button:before,
+#save_button:after {
+    content: "";
+    background-color: #ff2f7f;
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+}
+  
+#save_button:before {
+    top: -5px;
+    left: 0;
+}
+  
+#save_button:after {
+    left: 5px;
+    top: 0;
+}
+
+#save_button:hover,
+#save_button:hover:before,
+#save_button:hover:after {
+    background-color: #fa94bb;
 }

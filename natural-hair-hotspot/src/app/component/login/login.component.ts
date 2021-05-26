@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginRequestPayload } from './login-request.payload';
 import { UserService } from '../../service/user.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup; 
   isLoggedIn: any = false;
   loggedInUsername: any = null;
-  
+
+  response: any;  // The response message from the server when login fails
 
   constructor(private _userService: UserService,
               private _router: Router) {
@@ -25,18 +27,30 @@ export class LoginComponent implements OnInit {
       };
    }
 
+   /**
+    * On  page load, ensures previous user is logged out.
+    * Creates a new login form.
+    */
   ngOnInit(): void {
     if(this._userService.getUsername() != null) {
-      this._userService.logout().subscribe(); // Ensures last user is not still logged in on app start
-    } else {
+      this._userService.logout().subscribe(); // Ensures last user is not still logged in on app start.
+    } 
+    else {
       console.log('Start. No user logged in.');
     }
+
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
   }
 
+  /**
+   * Stores the username and password input by the user from the login form to the login request payload.
+   * Logs in the user if the credentials are a match in the database, 
+   * otherwise displays a failed login message.
+   * Navigates user to the home page.
+   */
   login() {
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
@@ -46,17 +60,21 @@ export class LoginComponent implements OnInit {
                         this.isLoggedIn = this._userService.loggedIn;
                         this.loggedInUsername = this._userService.getUsername();
                         this._router.navigateByUrl(''); 
-
-                        console.log('Login Successful')
-                        console.log('Logged in User:', this.loggedInUsername)     
-                        console.log('local storage: ', this._userService.getLocalStorage())       
-                      });
+                        
+                      }, (error: HttpErrorResponse) => {
+                            this.response = "Login failed.";
+                          }
+                      );
   }
     
-  // Logs out a user and clears the Login input boxes.
+  /**
+   * Logs out a user and clears the Login input boxes.
+   * Navigates to home page.
+   */
   logout() {
     this._userService.logout().subscribe();
     this.isLoggedIn = false;
+    this.response = null;
 
     this.loginForm.setValue({
       username: '',
@@ -66,6 +84,5 @@ export class LoginComponent implements OnInit {
     this._router.navigateByUrl('');
 
     console.log('Logged out successfully.')
-    console.log('local storage: ', this._userService.getLocalStorage())       
   }
 }

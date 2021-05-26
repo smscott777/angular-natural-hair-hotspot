@@ -3,10 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../common/product';
 import { ProductService } from '../../service/product.service';
 import { ReviewService } from '../../service/review.service';
-import { CreateReviewPayLoad } from '../../common/create-review.payload';
 import { Review } from 'src/app/common/review';
 import { FormGroup, FormControl } from '@angular/forms';
-import { throwError } from 'rxjs';
 
 @Component({
     selector: 'app-review',
@@ -16,16 +14,9 @@ export class ReviewComponent implements OnInit{
 
     product: Product = new Product();
     review: Review = new Review();
-    reviewPayLoad: CreateReviewPayLoad;
     createReviewForm: FormGroup;
-    products: Product[] = [];
     reviews: Review[] = [];
-
-
-       // Properties for server-side paging
-       currentPage: number = 1;
-       pageSize: number = 20;
-       totalRecords: number = 0;
+    response: string = "";
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _productService: ProductService,
@@ -38,6 +29,10 @@ export class ReviewComponent implements OnInit{
                     }
                 }
 
+    /**
+     * On page load, populates the selected product's name and image,
+     * and creates a review form. 
+     */
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(
             () => {
@@ -49,15 +44,11 @@ export class ReviewComponent implements OnInit{
             title: new FormControl(''),
             body: new FormControl(''),
         });
-
-        this._productService.getAllProducts().subscribe((data) => {
-            this.products = data;
-            console.log('data', data);
-            console.log('products', this.products);
-        });
-
     }
 
+    /**
+     * Stores the product's data from the product detail page.
+     */
     getProductInfo(){
         const prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
 
@@ -68,27 +59,36 @@ export class ReviewComponent implements OnInit{
         );
     }
 
+    /**
+     * Stores the keyword input by the user in the search bar, then navigates to
+     * the search URL with that keyword as an endpoint.
+     * @param keyword The name or ingredient entered into the search bar by the user.
+     */
     searchProducts(keyword: string){
-        console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
     }
 
-    // Creates a new review then navigates back to the product's page
+    /**
+     * Takes the review title and body input by the user from the review form and posts a new review.
+     * Ensures that the review is not empty.
+     */
     createReview() {
         const prodNum: number = +this._activatedRoute.snapshot.paramMap.get('prodNum');
 
         this.review.title = this.createReviewForm.get('title').value;
         this.review.body = this.createReviewForm.get('body').value;
-        this.review.product = 'product/'+prodNum;
 
-        this._reviewService.saveReview(this.review).subscribe();
-        this._router.navigateByUrl('/products/'+prodNum);
-            
+        if(this.review.title.length == 0 || this.review.body.length == 0) { //  Will not post an empty review.
+            this.response = "Field can not be blank."
+        }
+        else if(this.review.title.startsWith(" ") || this.review.body.startsWith(" ")) {    // To avoid posting whitespace reviews.
+            this.response = "Field can not be blank."
+        }
+        else {
+            this.review.product = 'product/'+prodNum;
 
-        console.log('title', this.review.title);
-        console.log('body', this.review.body);
-        console.log('prodNum', prodNum);
-        console.log('new review', this.review);
+            this._reviewService.saveReview(this.review).subscribe(); 
+            this.response = "Review posted."
+        }               
     }
-
 }

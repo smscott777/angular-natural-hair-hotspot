@@ -22,11 +22,21 @@ export class UserService {
     constructor(private http: HttpClient,
                 private localStorage: LocalStorageService) {}
 
+    /**
+     * 
+     * @param user 
+     * @returns 
+     */
     registerUser(user: User): Observable<User>{
         const registerUrl = `${this.baseUrl}/signup`;
         return this.http.post<User>(registerUrl, user, { responseType : 'text'});
     }
 
+    /**
+     * 
+     * @param loginRequestPayload 
+     * @returns 
+     */
     login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
         const loginUrl = `${this.baseUrl}/login`;
 
@@ -36,13 +46,16 @@ export class UserService {
 
                             this.loggedInStatus = true;
 
-
                             this.loggedIn.emit(true);
                             this.username.emit(data.username);
                             return true;
                         }));
     }
 
+    /**
+     * 
+     * @returns 
+     */
     logout() {
         const logoutUrl = `http://localhost:9090/api/v1/logout`;
 
@@ -55,20 +68,53 @@ export class UserService {
         return this.http.get(logoutUrl, {responseType : 'json'});
     }
 
+    /**
+     * 
+     * @returns 
+     */
     getLoggedInStatus() {
         return this.loggedInStatus;
     }
  
+    /**
+     * 
+     * @returns 
+     */
     getUsername() { 
         return this.localStorage.retrieve('username');
     }
 
+    /**
+     * 
+     * @returns 
+     */
     getLocalStorage() {
         return this.localStorage;
     }
 
+    /**
+     * 
+     * @param favoriteProductPayload 
+     * @returns 
+     */
     favoriteProduct(favoriteProductPayload: FavoriteProductPayload): Observable<FavoriteProductPayload> {
         const favoriteProductUrl = `${this.baseUrl}/favoriteProduct`;
         return this.http.post<FavoriteProductPayload>(favoriteProductUrl, favoriteProductPayload, { responseType : 'text'});
+    }
+
+    /**
+     * 
+     * @param favoriteProductPayload 
+     * @returns 
+     */
+    deleteFavProduct(favoriteProductPayload: FavoriteProductPayload) {
+        const favoriteProductUrl = `${this.baseUrl}/favoriteProduct`;
+        
+        return this.http.delete(favoriteProductUrl,  { params : 
+            {
+                productProdNum: favoriteProductPayload.productProdNum,
+                username: favoriteProductPayload.username
+            }
+        });
     }
 }

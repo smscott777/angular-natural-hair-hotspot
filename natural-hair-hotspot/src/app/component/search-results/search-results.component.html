@@ -8,10 +8,16 @@
 
     <div class="list_container"> 
         <div class="list_container_item" *ngFor="let product of products">
+
+            <div *ngIf="isLoggedIn">
+                <button id="save_button" (click)="favProduct(product.prodNum)"></button>
+            </div>
+
             <a id="product_image" routerLink="/products/{{product.prodNum}}">
                 <img [src]="product.imageUrl" height="150" width="150"/>
             </a>
-            <a  id="product_name" routerLink="/products/{{product.prodNum}}">
+
+            <a id="product_name" routerLink="/products/{{product.prodNum}}">
                 {{product.name}}
             </a>
     </div>      

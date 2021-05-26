@@ -16,6 +16,9 @@ export class SignUpComponent implements OnInit{
 
     constructor(private _userService: UserService) {}
 
+    /**
+     * On page load, creates a register/sign up login form.
+     */
     ngOnInit() {
         this.registerForm = new FormGroup({
             email: new FormControl('', Validators.required),
@@ -26,8 +29,11 @@ export class SignUpComponent implements OnInit{
         });
     }
 
-    // Takes values input to the register form to register a new user.
-    registerUser(){
+    /**
+     * Takes values input into the register form to register a new user.
+     * Displays the server's error response message if registration fails.
+     */
+    registerUser() {
         this.user.email = this.registerForm.get('email').value;
         this.user.username = this.registerForm.get('username').value;
         this.user.firstName = this.registerForm.get('firstName').value;
@@ -38,14 +44,11 @@ export class SignUpComponent implements OnInit{
         // The value of data is the ResponseEntity body from User Controller (Backend)
         this._userService.registerUser(this.user)
                             .subscribe(data => {
-                                console.log('Response:', data)  
                                 this.response = data;
                                 
                             }, (error: HttpErrorResponse) => {  // When the server manually throws the 400 HttpError
                                     this.response = error.error;
-                                    console.log('Error:', error.error);
-                            });
-        
- 
+                                }
+                            );
     }
 }

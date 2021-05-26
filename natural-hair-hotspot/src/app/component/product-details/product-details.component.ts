@@ -35,32 +35,32 @@ export class ProductDetailsComponent implements OnInit{
                 private _reviewService: ReviewService,
                 private _router: Router) {}
 
-    // The values returned by the methods called here are stored and usable on this component's html page.            
+    /**
+     * On page load, gets all of the data for the one product selected.
+     * This will populate the product's image, ingredients, reviews, name, etc.
+     */            
     ngOnInit() {
         this._activatedRoute.paramMap.subscribe(() => {
             this.getProductInfo();
         });
-
-        console.log('test getUsername: ', this._userService.getUsername());
     }
 
-    // Selects a single product and a list of reviews of that product
-    getProductInfo(){
-        // Selects the single product
+    // Selects a single product and gets a list of reviews of that product.
+    getProductInfo() {
+        // Gets the product.
         this._productService.getProduct(this.prodNum).subscribe(data => {
             this.product = data;
         });
         
-        // Selects a list of reviews for the product number that is passed 
+        // Gets a list of all reviews for the one product. 
         this._reviewService.getReviewsByProductNumber(
             this.prodNum, 
             this.currentPage - 1, 
             this.pageSize
-        )
-        .subscribe(this.processResults());    
+        ).subscribe(this.processResults());    
     }
 
-    // Assigns values to reviews list and page fields that from data received from GET request
+    // Assigns values to this component's reviews list using data received from server.
     processResults() {
         return data => {
             this.reviews = data._embedded.reviews;
@@ -72,27 +72,29 @@ export class ProductDetailsComponent implements OnInit{
 
     // Takes the input from the search bar then searches by the keyword input
     searchProducts(keyword: string) {
-        console.log('keyword', keyword);
         this._router.navigateByUrl('/search/'+keyword);
     }
 
-    // Saves a product under a specific user's 'Favorite Products' list
+    /** 
+     * Saves a product under the logged in user's favorite products list.
+     * If no user is logged in, prompts the user to log in.
+     */ 
     favProduct() {
         this.favoriteProductPayload.productProdNum = this.prodNum;
         this.favoriteProductPayload.username = this._userService.getUsername();
 
         if(this.favoriteProductPayload.username != null) {
             this.isLoggedIn = true;
+
             this._userService.favoriteProduct(this.favoriteProductPayload)
                                 .subscribe(data => {       
-                                    console.log('Response:', data)
                                     this.response = data;
                                 }, (error: HttpErrorResponse) => {
-                                    this.response = error.error;
-                                    console.log('Error:', error.error);
-                                }); 
+                                        this.response = error.error;
+                                    }
+                                ); 
         }
-        else{
+        else {
             this.isLoggedIn = false;
             this.loginMessage = "Login to save.";
         }

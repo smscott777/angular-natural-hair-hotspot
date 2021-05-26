@@ -8,7 +8,7 @@
             {{product.name}}
         </a>
         <div>
-            <a id="remove_favorite"><a id="x">x </a>Remove</a>
+            <a id="remove_favorite" ><a id="x" (click)="deleteFavoriteProduct(product.prodNum)">x </a>Remove</a>
         </div>
     </div>
     <div *ngIf="favoriteProducts?.length == 0">
@@ -16,5 +16,5 @@
     </div> 
 </div>
 <ng-template #elseBlock>
-    Login to See Saved Items.
+    <div id="fav_login_prompt">Login to See Saved Items.</div> 
 </ng-template> 
