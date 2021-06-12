@@ -7,25 +7,24 @@ import { LoginResponse } from '../component/login/login-response.payload';
 import { map } from 'rxjs/operators';
 import { FavoriteProductPayload } from '../common/favorite-product.payload';
 import { User } from '../common/user';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-   private baseUrl = "http://localhost:9090/api/v1/auth";
-   private loggedInStatus: boolean;
-
-    @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
-    @Output() username: EventEmitter<string> = new EventEmitter();
+    private baseUrl = "http://localhost:9090/api/v1/auth";
+    private loggedInStatus: boolean;
 
     constructor(private http: HttpClient,
                 private localStorage: LocalStorageService) {}
 
     /**
-     * 
-     * @param user 
-     * @returns 
+     * Takes a new user object as an argument, then calls on the server
+     * to register a new user.
+     * @param user The new user.
+     * @returns The Post request.
      */
     registerUser(user: User): Observable<User>{
         const registerUrl = `${this.baseUrl}/signup`;
@@ -33,36 +32,31 @@ export class UserService {
     }
 
     /**
-     * 
-     * @param loginRequestPayload 
-     * @returns 
+     * Takes a login request payload as an argument, then calls on the server
+     * to log in an existing user.
+     * @param loginRequestPayload Holds the user's credentials: username and password.
+     * @returns The Post request.
      */
     login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
         const loginUrl = `${this.baseUrl}/login`;
 
         return this.http.post<LoginResponse>(loginUrl, loginRequestPayload)
                         .pipe(map(data => {
-                            this.localStorage.store('username', data.username);
-
+                            localStorage.setItem('username', loginRequestPayload.username);
+                            localStorage.setItem('accessToken', data.accessToken);
                             this.loggedInStatus = true;
-
-                            this.loggedIn.emit(true);
-                            this.username.emit(data.username);
                             return true;
                         }));
     }
 
     /**
-     * 
+     * Logs out a user.
      * @returns 
      */
     logout() {
-        const logoutUrl = `http://localhost:9090/api/v1/logout`;
+        const logoutUrl = `http://localhost:9090/api/v1/auth/logout`;
 
-        this.localStorage.clear('username');
-        this.localStorage.clear;
-        this.loggedIn.emit(false);
-        //return false;
+        localStorage.clear();
         this.loggedInStatus = false;
 
         return this.http.get(logoutUrl, {responseType : 'json'});
@@ -70,32 +64,31 @@ export class UserService {
 
     /**
      * 
-     * @returns 
+     * @returns The logged in status, true or false;
      */
     getLoggedInStatus() {
+        if(this.getUsername() != null) {
+            this.loggedInStatus = true;
+        } else {
+            this.loggedInStatus = false;
+        }
         return this.loggedInStatus;
     }
  
     /**
-     * 
-     * @returns 
+     * Gets the logged in user's username.
+     * @returns The username.
      */
     getUsername() { 
-        return this.localStorage.retrieve('username');
+        return localStorage.getItem('username');
     }
 
-    /**
-     * 
-     * @returns 
-     */
-    getLocalStorage() {
-        return this.localStorage;
-    }
 
     /**
-     * 
-     * @param favoriteProductPayload 
-     * @returns 
+     * Takes a favorite product payload as an argument, then calls on 
+     * the server to save a product to the user's favorite products list.
+     * @param favoriteProductPayload Holds the username and the product number.
+     * @returns The Post request.
      */
     favoriteProduct(favoriteProductPayload: FavoriteProductPayload): Observable<FavoriteProductPayload> {
         const favoriteProductUrl = `${this.baseUrl}/favoriteProduct`;
@@ -103,9 +96,10 @@ export class UserService {
     }
 
     /**
-     * 
-     * @param favoriteProductPayload 
-     * @returns 
+     * Takes a favorite product payload as an argument, then calls on 
+     * the server to delete a product from the user's favorite products list.
+     * @param favoriteProductPayload Holds the username and the product number. 
+     * @returns The Delete request.
      */
     deleteFavProduct(favoriteProductPayload: FavoriteProductPayload) {
         const favoriteProductUrl = `${this.baseUrl}/favoriteProduct`;
@@ -116,5 +110,10 @@ export class UserService {
                 username: favoriteProductPayload.username
             }
         });
+    }
+
+    getPrincipal() {
+        const authUrl = `${this.baseUrl}/user`;
+        this.http.get(authUrl).subscribe();
     }
 }

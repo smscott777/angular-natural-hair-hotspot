@@ -10,12 +10,12 @@ export class ProductService {
 
     private productsUrl = "http://localhost:9090/api/v1/products";
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-     /**
-     * Calls on the server to Returns a list of all products.
-     * @returns The list of all products.
-     */
+    /**
+    * Calls on the server to Returns a list of all products.
+    * @returns The list of all products.
+    */
     getAllProducts(): Observable<Array<Product>> {
         const searchUrl = `${this.productsUrl}/search`;
         return this.http.get<Array<Product>>(searchUrl);
@@ -39,7 +39,7 @@ export class ProductService {
      * @param currentPage 
      * @param pageSize 
      * @returns A list of all products in the selected category.
-     */ 
+     */
     getProductsByCategory(theCategoryId: number, currentPage: number, pageSize: number): Observable<GetResponseProducts> {
         const searchUrl = `${this.productsUrl}/search/categoryid?id=${theCategoryId}&page=${currentPage}&size=${pageSize}`;
         return this.http.get<GetResponseProducts>(searchUrl);

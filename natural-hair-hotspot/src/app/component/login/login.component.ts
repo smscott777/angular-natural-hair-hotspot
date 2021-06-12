@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup; 
   isLoggedIn: any = false;
   loggedInUsername: any = null;
-
   response: any;  // The response message from the server when login fails
 
   constructor(private _userService: UserService,
@@ -32,13 +31,11 @@ export class LoginComponent implements OnInit {
     * Creates a new login form.
     */
   ngOnInit(): void {
-    if(this._userService.getUsername() != null) {
-      this._userService.logout().subscribe(); // Ensures last user is not still logged in on app start.
-    } 
-    else {
-      console.log('Start. No user logged in.');
+    this.isLoggedIn = this._userService.getLoggedInStatus();
+    
+    if(this.isLoggedIn) {
+      this.loggedInUsername = this._userService.getUsername();
     }
-
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -57,7 +54,7 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.loginRequestPayload)
                       .subscribe(data => {
-                        this.isLoggedIn = this._userService.loggedIn;
+                        this.isLoggedIn = this._userService.getLoggedInStatus();
                         this.loggedInUsername = this._userService.getUsername();
                         this._router.navigateByUrl(''); 
                         
@@ -73,6 +70,7 @@ export class LoginComponent implements OnInit {
    */
   logout() {
     this._userService.logout().subscribe();
+   // this.isLoggedIn = this._userService.getLoggedInStatus();
     this.isLoggedIn = false;
     this.response = null;
 
@@ -82,7 +80,5 @@ export class LoginComponent implements OnInit {
     });
   
     this._router.navigateByUrl('');
-
-    console.log('Logged out successfully.')
   }
 }

@@ -14,7 +14,6 @@ export class FavProductsComponent implements OnInit{
 
     favoriteProducts: Product[] = [];  
     favoriteProductPayload: FavoriteProductPayload = new FavoriteProductPayload();  
-    prodNum: number;
 
     constructor(private _productService: ProductService,
                 private _userService: UserService,
@@ -30,10 +29,17 @@ export class FavProductsComponent implements OnInit{
     getFavoriteProducts() {
         const username: string = this._userService.getUsername();
 
-        this._productService.getFavoriteProducts(username)
-                            .subscribe(data => {
-                                this.favoriteProducts = data._embedded.products;
-                            });
+        if(username != null) {
+            this._productService.getFavoriteProducts(username)
+                                .subscribe(data => {
+                                    this.favoriteProducts = data._embedded.products;
+                                }, (error: HttpErrorResponse) => {
+                                    console.log("Can not get favorite products list.")
+                                });
+        }
+        else {
+            console.log("Not logged in.")
+        }
     }
 
     /**

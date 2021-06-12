@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
     selector: 'app-nav',
@@ -7,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit{
 
-    constructor(private _router: Router){}
+    constructor(private _router: Router,
+                private _userService: UserService){}
 
     ngOnInit(){}
 
@@ -18,4 +20,9 @@ export class NavComponent implements OnInit{
     searchByCategoryId(id: number){
         this._router.navigateByUrl('/search/category/'+id);
     }
+
+    getPrincipal() {
+        this._userService.getPrincipal();
+    }
+
 }

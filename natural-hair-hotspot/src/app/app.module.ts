@@ -18,6 +18,36 @@ import { NavComponent } from './component/nav/nav.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './component/login/login.component';
 
+import { Injectable } from '@angular/core';
+import {
+  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
+} from '@angular/common/http';
+import { UserService } from './service/user.service';
+import { Observable } from 'rxjs';
+
+// To send jwt in header with every request.
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+    intercept(req: HttpRequest<any>,
+              next: HttpHandler): Observable<HttpEvent<any>> {
+
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (accessToken) {
+            const cloned = req.clone({
+                headers: req.headers.set("Authorization",
+                    "Bearer " + accessToken)
+            });
+
+            return next.handle(cloned);
+        }
+        else {
+            return next.handle(req);
+        }
+    }
+}
+
 const routes: Routes = [
   {path: 'my-items', component: FavProductsComponent},
   {path: 'products/:prodNum', component: ProductDetailsComponent},
@@ -55,7 +85,7 @@ const routes: Routes = [
     FormsModule,
     NgxWebstorageModule.forRoot()
   ],
-  providers: [ProductService],
+  providers: [ProductService, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
