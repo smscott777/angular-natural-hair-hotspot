@@ -8,7 +8,7 @@ import { Review } from '../common/review';
 })
 export class ReviewService {
 
-    private reviewsUrl = "http://localhost:9090/api/v1/reviews";
+    private reviewsUrl =  "https://nhhsbackend.com/api/v1/reviews";
 
     constructor(private http: HttpClient) { }
 

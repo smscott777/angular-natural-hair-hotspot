@@ -89,6 +89,11 @@ export class ReviewComponent implements OnInit{
 
             this._reviewService.saveReview(this.review).subscribe(); 
             this.response = "Review posted."
+            // Empties the input text boxes.
+            this.createReviewForm.setValue({
+                title: '',
+                body: ''
+            });
         }               
     }
 }

@@ -20,9 +20,4 @@ export class NavComponent implements OnInit{
     searchByCategoryId(id: number){
         this._router.navigateByUrl('/search/category/'+id);
     }
-
-    getPrincipal() {
-        this._userService.getPrincipal();
-    }
-
 }

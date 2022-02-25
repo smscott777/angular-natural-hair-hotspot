@@ -7,14 +7,13 @@ import { LoginResponse } from '../component/login/login-response.payload';
 import { map } from 'rxjs/operators';
 import { FavoriteProductPayload } from '../common/favorite-product.payload';
 import { User } from '../common/user';
-import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    private baseUrl = "http://localhost:9090/api/v1/auth";
+    private baseUrl =  "https://nhhsbackend.com/api/v1/auth";
     private loggedInStatus: boolean;
 
     constructor(private http: HttpClient,
@@ -54,7 +53,8 @@ export class UserService {
      * @returns 
      */
     logout() {
-        const logoutUrl = `http://localhost:9090/api/v1/auth/logout`;
+        //const logoutUrl = `http://localhost:9090/api/v1/auth/logout`;
+        const logoutUrl = `${this.baseUrl}/logout`;
 
         localStorage.clear();
         this.loggedInStatus = false;
@@ -111,9 +111,10 @@ export class UserService {
             }
         });
     }
-
+/*
     getPrincipal() {
         const authUrl = `${this.baseUrl}/user`;
         this.http.get(authUrl).subscribe();
     }
+*/
 }
